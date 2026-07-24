@@ -75,17 +75,13 @@ async function runAutomatedCleanup(retentionDays = 365) {
 
 // Enable standalone CLI execution
 if (require.main === module) {
-  const connectDB = require('../config/db');
   const dotenv = require('dotenv');
   dotenv.config();
 
-  connectDB().then(async () => {
-    await runAutomatedCleanup(process.env.TTL_DAYS || 365);
-    if (mongoose.connection.readyState === 1) {
-      mongoose.connection.close();
-    }
+  runAutomatedCleanup(process.env.TTL_DAYS || 365).then(() => {
     process.exit(0);
   });
 }
+
 
 module.exports = runAutomatedCleanup;

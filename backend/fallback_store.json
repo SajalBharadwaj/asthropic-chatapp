@@ -144,7 +144,7 @@
         "isPro": false,
         "username": "ravi",
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:36:00.277Z"
+        "lastSeen": "2026-07-24T16:44:49.961Z"
       }
     ],
     [
@@ -194,7 +194,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:36:00.281Z"
+        "lastSeen": "2026-07-24T16:44:53.770Z"
       }
     ],
     [
@@ -212,7 +212,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:36:00.281Z"
+        "lastSeen": "2026-07-24T16:44:53.770Z"
       }
     ],
     [
@@ -230,11 +230,35 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:36:00.281Z"
+        "lastSeen": "2026-07-24T16:44:53.770Z"
       }
     ]
   ],
   "logoutLogs": [
+    {
+      "id": "logout_1784911489711_810",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T16:44:49.711Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784911475684_532",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T16:44:35.684Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784911440634_664",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T16:44:00.634Z",
+      "ip": "::1"
+    },
     {
       "id": "logout_1784910743005_34",
       "userId": "user_1784892074877_806",

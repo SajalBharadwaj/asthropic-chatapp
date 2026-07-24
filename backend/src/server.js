@@ -7,7 +7,6 @@ const path = require('path');
 
 dotenv.config();
 
-const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const aiRoutes = require('./routes/aiRoutes');
@@ -20,8 +19,6 @@ const fs = require('fs');
 const app = express();
 const server = http.createServer(app);
 
-// Connect to Cloud / MongoDB Database
-connectDB();
 
 // 1. END-TO-END SECURITY HEADERS MIDDLEWARE
 app.use((req, res, next) => {

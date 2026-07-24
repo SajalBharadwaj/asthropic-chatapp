@@ -1,6 +1,7 @@
-const cache = require('../config/redis');
 const User = require('../models/User');
 const mongoose = require('mongoose');
+
+const localPresenceMap = new Map();
 
 const presenceService = {
   /**
@@ -18,8 +19,8 @@ const presenceService = {
         lastSeen: lastSeenDate.toISOString(),
       };
       
-      // Update in Redis cache
-      await cache.set(`presence:${userId}`, presenceData);
+      // Update local memory cache
+      localPresenceMap.set(userId, presenceData);
       
       const isMongoConnected = mongoose.connection.readyState === 1;
       if (isMongoConnected) {
@@ -60,8 +61,8 @@ const presenceService = {
         lastSeen: lastSeenDate.toISOString(),
       };
       
-      // Update in Redis cache
-      await cache.set(`presence:${userId}`, presenceData);
+      // Update local memory cache
+      localPresenceMap.set(userId, presenceData);
 
       const isMongoConnected = mongoose.connection.readyState === 1;
       if (isMongoConnected) {
@@ -94,7 +95,7 @@ const presenceService = {
    */
   async getUserPresence(userId) {
     try {
-      const cached = await cache.get(`presence:${userId}`);
+      const cached = localPresenceMap.get(userId);
       if (cached) return cached;
 
       const isMongoConnected = mongoose.connection.readyState === 1;
@@ -102,7 +103,7 @@ const presenceService = {
         const user = await User.findById(userId).select('isOnline lastSeen').lean();
         if (!user) return { isOnline: false, lastSeen: null };
         const data = { isOnline: user.isOnline, lastSeen: user.lastSeen };
-        await cache.set(`presence:${userId}`, data, 300); // 5 min TTL
+        localPresenceMap.set(userId, data);
         return data;
       } else {
         if (global.globalUsersMap) {
@@ -119,5 +120,8 @@ const presenceService = {
     }
   }
 };
+
+module.exports = presenceService;
+
 
 module.exports = presenceService;
