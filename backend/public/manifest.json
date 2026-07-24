@@ -1,0 +1,17 @@
+{
+  "name": "Asthropic ChatApp - Superhero Portal",
+  "short_name": "Asthropic",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0F12",
+  "theme_color": "#E62429",
+  "description": "Real-Time Communications, AI Assistant & Voice Calling Ecosystem",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23E62429'/><path d='M50 18 L76 75 H60 L54 60 H46 L40 75 H24 Z M50 36 L43 50 H57 Z' fill='%23FFFFFF'/></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

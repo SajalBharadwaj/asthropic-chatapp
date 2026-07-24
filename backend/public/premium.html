@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="aurora-glow">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Membership - Asthropic</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-radial: radial-gradient(circle at 50% 30%, #15181e 0%, #0d0f12 100%);
+      --accent: #00e676;
+      --accent-glow: rgba(0, 230, 118, 0.35);
+      --bg-card: rgba(21, 24, 28, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --text-main: #ffffff;
+      --text-sub: #90a4ae;
+      --pro-gradient: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+      --pro-glow: rgba(255, 215, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg-radial);
+      min-height: 100vh;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* Glow overlays */
+    .glow-bg {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      top: 10%;
+      left: 10%;
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(80px);
+    }
+    .glow-bg-2 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--pro-glow) 0%, transparent 70%);
+      bottom: 10%;
+      right: 10%;
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(80px);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .logo span {
+      background: var(--pro-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      color: var(--text-sub);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    /* Pricing card */
+    .pricing-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 40px;
+      width: 100%;
+      max-width: 380px;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      text-align: left;
+    }
+
+    .card.premium-card {
+      border-color: rgba(255, 215, 0, 0.3);
+      box-shadow: 0 30px 60px rgba(255, 215, 0, 0.08), 0 0 40px rgba(255, 215, 0, 0.05);
+    }
+
+    .card.premium-card::before {
+      content: 'POPULAR';
+      position: absolute;
+      top: -12px;
+      right: 28px;
+      background: var(--pro-gradient);
+      color: #000;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 30px var(--accent-glow);
+    }
+
+    .card.premium-card:hover {
+      border-color: #ffd700;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 35px var(--pro-glow);
+    }
+
+    .plan-name {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .plan-price {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: baseline;
+    }
+    .plan-price span {
+      font-size: 16px;
+      color: var(--text-sub);
+      font-weight: 500;
+      margin-left: 4px;
+    }
+
+    .features-list {
+      list-style: none;
+      margin-bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14.5px;
+      color: var(--text-main);
+    }
+
+    .features-list li .check-icon {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .features-list li.disabled {
+      color: var(--text-sub);
+      opacity: 0.5;
+    }
+
+    .features-list li.disabled .check-icon {
+      color: var(--text-sub);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 20px;
+      border: none;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-primary {
+      background: var(--pro-gradient);
+      color: #000;
+      box-shadow: 0 10px 25px var(--pro-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px var(--pro-glow);
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 24px;
+      transition: color 0.2s;
+    }
+    .back-btn:hover {
+      color: var(--text-main);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(21, 24, 28, 0.95);
+      border: 1px solid var(--border);
+      padding: 14px 28px;
+      border-radius: 28px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 9999;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+
+  <!-- Razorpay Checkout Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+  <div class="glow-bg"></div>
+  <div class="glow-bg-2"></div>
+
+  <div class="container">
+    <div class="logo">⚡ <span>Asthropic Pro</span></div>
+    <h1>Elevate Your Messaging Experience</h1>
+    <p class="subtitle">Access enterprise-grade artificial intelligence, custom avatars, priority signaling lines, and unlimited channels.</p>
+
+    <div class="pricing-grid">
+      <!-- Free Plan -->
+      <div class="card">
+        <div class="plan-name">Free Basic</div>
+        <div class="plan-price">₹0<span>/month</span></div>
+        <ul class="features-list">
+          <li><span class="check-icon">✓</span> Standard DM Chatting</li>
+          <li><span class="check-icon">✓</span> Glassmorphic Theme Pack</li>
+          <li class="disabled"><span class="check-icon">✗</span> Unlimited AI Bot Interactions</li>
+          <li class="disabled"><span class="check-icon">✗</span> Premium Custom Wallpapers</li>
+          <li class="disabled"><span class="check-icon">✗</span> Custom Avatar Creator</li>
+        </ul>
+        <button class="btn btn-secondary" disabled>Current Plan</button>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="card premium-card">
+        <div class="plan-name" style="color: #ffd700;">PRO MEMBER</div>
+        <div class="plan-price">₹199<span>/month</span></div>
+        <ul class="features-list">
+          <li><span class="check-icon">✓</span> Standard DM Chatting</li>
+          <li><span class="check-icon">✓</span> Glassmorphic Theme Pack</li>
+          <li><span class="check-icon" style="color: #ffd700;">✓</span> Unlimited AI Bot Interactions</li>
+          <li><span class="check-icon" style="color: #ffd700;">✓</span> Premium Custom Wallpapers</li>
+          <li><span class="check-icon" style="color: #ffd700;">✓</span> Custom Avatar Creator</li>
+        </ul>
+        <button class="btn btn-primary" id="upgradeBtn">Upgrade to Pro</button>
+      </div>
+    </div>
+
+    <a href="/" class="back-btn">← Back to Chat Dashboard</a>
+  </div>
+
+  <div id="toast" class="toast">Payment success!</div>
+
+  <script>
+    const token = localStorage.getItem('token');
+    
+    // Check if user is logged in
+    if (!token) {
+      alert('Please login first to view membership options.');
+      window.location.href = '/';
+    }
+
+    const toast = document.getElementById('toast');
+    function showToast(msg, duration = 3000) {
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), duration);
+    }
+
+    document.getElementById('upgradeBtn').addEventListener('click', async () => {
+      try {
+        showToast('Initiating secure payment gateway...');
+        
+        // 1. Create order on the backend
+        const res = await fetch('/api/payments/create-order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        const data = await res.json();
+        
+        if (!data.success) {
+          throw new Error(data.message || 'Failed to initialize order');
+        }
+
+        // 2. Configure Razorpay Checkout options
+        const options = {
+          key: data.key,
+          amount: data.amount,
+          currency: data.currency,
+          name: 'Asthropic Premium',
+          description: 'Monthly Premium Membership Subscription',
+          image: 'https://api.dicebear.com/7.x/shapes/svg?seed=asthropic',
+          order_id: data.orderId,
+          handler: async function (response) {
+            // Verify payment on the backend
+            try {
+              showToast('Verifying payment cryptographic signature...');
+              const verifyRes = await fetch('/api/payments/verify-payment', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature
+                })
+              });
+              
+              const verifyData = await verifyRes.json();
+              if (verifyData.success) {
+                // Update local storage credentials
+                const userRaw = localStorage.getItem('user');
+                if (userRaw) {
+                  const user = JSON.parse(userRaw);
+                  user.isPro = true;
+                  user.role = 'pro_user';
+                  localStorage.setItem('user', JSON.stringify(user));
+                }
+                showToast('🎉 Grant Complete! You are now a PRO member.');
+                setTimeout(() => {
+                  window.location.href = '/';
+                }, 2000);
+              } else {
+                showToast('❌ Signature validation failed.');
+              }
+            } catch (err) {
+              console.error(err);
+              showToast('❌ Error verifying payment.');
+            }
+          },
+          prefill: {
+            name: 'Subscriber Name',
+            email: 'subscriber@example.com'
+          },
+          theme: {
+            color: '#ff8c00'
+          }
+        };
+
+        // 3. Open Razorpay checkout interface
+        const rzp = new Razorpay(options);
+        rzp.open();
+      } catch (err) {
+        console.error(err);
+        showToast('❌ Failed to initiate checkout.');
+      }
+    });
+  </script>
+</body>
+</html>
