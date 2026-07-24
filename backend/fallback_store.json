@@ -115,18 +115,17 @@
     [
       "user_owner_seed",
       {
-        "password": "password123",
-        "phoneNumber": "+919999999999",
-        "role": "owner",
-        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sajal",
-        "displayName": "Sajal Sharma",
         "_id": "user_owner_seed",
-        "email": "sajalsharma46777@gmail.com",
-        "isPro": true,
-        "statusMessage": "👑 Asthropic Owner",
         "username": "sajal",
-        "proActivatedAt": "2026-07-24T06:40:37.905Z",
-        "createdAt": "2026-07-19T07:16:20.528Z"
+        "email": "sajalsharma46777@gmail.com",
+        "password": "password123",
+        "displayName": "Sajal Sharma",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sajal",
+        "role": "owner",
+        "isPro": true,
+        "isOnline": false,
+        "lastSeen": "2026-07-24T17:33:39.214+00:00",
+        "createdAt": "2026-07-19T07:16:20.528+00:00"
       }
     ],
     [
@@ -144,39 +143,39 @@
         "isPro": false,
         "username": "ravi",
         "isOnline": true,
-        "lastSeen": "2026-07-24T17:25:03.238Z"
+        "lastSeen": "2026-07-24T17:33:38.792Z"
       }
     ],
     [
       "user_aman_seed",
       {
-        "createdAt": "2026-07-22T07:16:20.528Z",
-        "password": "password123",
-        "phoneNumber": "+919876543210",
-        "role": "user",
-        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Aman",
-        "displayName": "Aman Sharma",
         "_id": "user_aman_seed",
+        "username": "aman",
         "email": "aman@domain.com",
+        "password": "password123",
+        "displayName": "Aman Sharma",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Aman",
+        "role": "user",
         "isPro": false,
-        "statusMessage": "Hey! I am Aman.",
-        "username": "aman"
+        "isOnline": false,
+        "lastSeen": "2026-07-24T17:33:39.214+00:00",
+        "createdAt": "2026-07-22T07:16:20.528+00:00"
       }
     ],
     [
       "ai_bot_user_id",
       {
-        "password": "ai_bot_password",
-        "isAI": true,
-        "phoneNumber": "+10000000000",
-        "role": "user",
-        "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Gemini",
-        "displayName": "Asthropic Gemini AI",
         "_id": "ai_bot_user_id",
+        "username": "asthropic_ai",
         "email": "ai@asthropic.internal",
+        "password": "ai_bot_password",
+        "displayName": "Asthropic Gemini AI",
+        "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Gemini",
+        "role": "user",
         "isPro": false,
-        "statusMessage": "Official AI Assistant",
-        "username": "asthropic_ai"
+        "isOnline": false,
+        "lastSeen": "2026-07-24T17:33:39.214+00:00",
+        "createdAt": "2026-07-24T17:33:39.214+00:00"
       }
     ],
     [
@@ -194,7 +193,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T17:25:05.243Z"
+        "lastSeen": "2026-07-24T17:33:39.213Z"
       }
     ],
     [
@@ -212,7 +211,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T17:25:05.243Z"
+        "lastSeen": "2026-07-24T17:33:39.213Z"
       }
     ],
     [
@@ -230,11 +229,129 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T17:25:05.243Z"
+        "lastSeen": "2026-07-24T17:33:39.213Z"
+      }
+    ],
+    [
+      "naman@1234",
+      {
+        "_id": "user_1784914416762_408",
+        "username": "naman",
+        "displayName": "naman",
+        "email": "naman@1234",
+        "phoneNumber": "63783478374",
+        "password": "123456",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=naman",
+        "statusMessage": "Hey there! I am using Asthropic ChatApp.",
+        "role": "user",
+        "isPro": false,
+        "proActivatedAt": null,
+        "isOnline": true,
+        "lastSeen": "2026-07-24T17:34:06.353Z"
+      }
+    ],
+    [
+      "naman",
+      {
+        "_id": "user_1784914416762_408",
+        "username": "naman",
+        "displayName": "naman",
+        "email": "naman@1234",
+        "phoneNumber": "63783478374",
+        "password": "123456",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=naman",
+        "statusMessage": "Hey there! I am using Asthropic ChatApp.",
+        "role": "user",
+        "isPro": false,
+        "proActivatedAt": null,
+        "isOnline": true,
+        "lastSeen": "2026-07-24T17:34:06.353Z"
+      }
+    ],
+    [
+      "63783478374",
+      {
+        "_id": "user_1784914416762_408",
+        "username": "naman",
+        "displayName": "naman",
+        "email": "naman@1234",
+        "phoneNumber": "63783478374",
+        "password": "123456",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=naman",
+        "statusMessage": "Hey there! I am using Asthropic ChatApp.",
+        "role": "user",
+        "isPro": false,
+        "proActivatedAt": null,
+        "isOnline": true,
+        "lastSeen": "2026-07-24T17:34:06.353Z"
+      }
+    ],
+    [
+      "user_1784914416762_408",
+      {
+        "_id": "user_1784914416762_408",
+        "username": "naman",
+        "email": "naman@1234",
+        "password": "123456",
+        "displayName": "naman",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=naman",
+        "role": "user",
+        "isPro": false,
+        "isOnline": true,
+        "lastSeen": "2026-07-24T17:34:06.353Z",
+        "createdAt": "2026-07-24T17:33:39.214+00:00"
+      }
+    ],
+    [
+      "user_1784892074877_806",
+      {
+        "_id": "user_1784892074877_806",
+        "username": "iron",
+        "email": "iron@1234",
+        "password": "123456",
+        "displayName": "Iron",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Iron",
+        "role": "user",
+        "isPro": false,
+        "isOnline": true,
+        "lastSeen": "2026-07-24T17:33:39.213+00:00",
+        "createdAt": "2026-07-24T17:33:39.214+00:00"
       }
     ]
   ],
   "logoutLogs": [
+    {
+      "id": "logout_1784914446011_498",
+      "userId": "user_1784914416762_408",
+      "displayName": "naman",
+      "email": "naman@1234",
+      "timestamp": "2026-07-24T17:34:06.011Z",
+      "ip": "::ffff:127.0.0.1"
+    },
+    {
+      "id": "logout_1784914046597_671",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T17:27:26.597Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784914005008_31",
+      "userId": "user_1784892074877_806",
+      "displayName": "Iron",
+      "email": "iron@1234",
+      "timestamp": "2026-07-24T17:26:45.008Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784913972456_153",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T17:26:12.456Z",
+      "ip": "::1"
+    },
     {
       "id": "logout_1784912071705_874",
       "userId": "user_1784768787595_57",
@@ -342,6 +459,14 @@
   ],
   "loginLogs": [
     {
+      "id": "login_1784914416767_609",
+      "userId": "user_1784914416762_408",
+      "displayName": "naman",
+      "email": "naman@1234",
+      "timestamp": "2026-07-24T17:33:36.767Z",
+      "ip": "192.168.1.15"
+    },
+    {
       "id": "login_1784892074896_274",
       "userId": "user_1784892074877_806",
       "displayName": "Iron",
@@ -359,6 +484,14 @@
     }
   ],
   "callLogs": [
+    {
+      "id": "call_1784913992299_196",
+      "callerName": "Ravi",
+      "recipientName": "Iron",
+      "status": "Declined",
+      "duration": "-",
+      "timestamp": "2026-07-24T17:26:32.299Z"
+    },
     {
       "id": "call_1784911833788_178",
       "callerName": "Ravi",
