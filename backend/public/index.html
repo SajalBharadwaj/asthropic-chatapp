@@ -1140,8 +1140,15 @@
        RIGHT PANEL — ONLINE MEMBERS (GLASSMORPHISM)
     ══════════════════════════════════════════════════ */
     .online-panel {
-      display: none !important;
+      width: 256px;
+      background: linear-gradient(180deg, rgba(17,27,33,0.97) 0%, rgba(11,20,26,0.99) 100%);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(255,255,255,0.07);
+      display: flex; flex-direction: column;
+      box-shadow: -2px 0 28px rgba(0,0,0,0.4);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
 
     .online-header {
       background: rgba(32,44,51,0.8);
@@ -1333,7 +1340,19 @@
       .app-body.mobile-chat-active .sidebar { display: none !important; }
       .app-body.mobile-chat-active .chat-area { display: flex; width: 100%; }
 
-      .online-panel { display: none !important; }
+      .online-panel {
+        position: fixed; top: 0; right: 0; width: 280px; height: 100%;
+        z-index: 1500; background: var(--bg-card); border-left: 1px solid var(--border);
+        box-shadow: -10px 0 40px rgba(0,0,0,0.6);
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex !important;
+      }
+      .online-panel.open {
+        transform: translateX(0);
+      }
+      .mobile-only-close { display: inline-block !important; }
+
 
       .mobile-back-btn { display: inline-flex !important; align-items: center; justify-content: center; font-size: 18px; margin-right: 8px; cursor: pointer; background: rgba(255,255,255,0.12); width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; }
 
@@ -1825,11 +1844,15 @@
       </div>
     </div>
 
-    <div class="online-panel">
+    <div class="online-panel" id="onlinePanelContainer">
       <div class="online-header">
         <h4>🟢 Online Members</h4>
-        <span class="online-count-badge" id="onlineCountBadge">1 Active</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="online-count-badge" id="onlineCountBadge">1 Active</span>
+          <button class="mobile-only-close" onclick="ChatEngine.closeOnlinePanel()" style="display: none; background: none; border: none; color: var(--text-sub); font-size: 18px; cursor: pointer; padding: 0 4px; font-weight: bold; outline: none;">✕</button>
+        </div>
       </div>
+
       <div class="online-list" id="onlineList">
         <div class="online-item" onclick="ChatEngine.selectChat('ai_bot', 'Asthropic Gemini AI', 'https://api.dicebear.com/7.x/bottts/svg?seed=Gemini', true)">
           <div class="online-avatar-wrap">
@@ -3444,14 +3467,21 @@
           </div>
         `;
 
-        // ── SHOW ONLY ONLINE USERS IN LEFT SIDEBAR ──
-        // Offline users are completely hidden here; they remain visible
-        // in the right-hand Online Members panel which shows both sections.
-        const onlineIds   = new Set(StateStore.onlineUsersArray.map(u => u._id));
-        const onlineUsers = users.filter(u => onlineIds.has(u._id));
+        // ── SHOW ALL REGISTERED USERS IN LEFT SIDEBAR ──
+        const onlineIds = new Set(StateStore.onlineUsersArray.map(u => u._id));
+        const onlineUsers = [];
+        const offlineUsers = [];
 
-        // Helper to build a single online user chat-item DOM element
-        const buildUserItem = (u) => {
+        users.forEach(u => {
+          if (onlineIds.has(u._id)) {
+            onlineUsers.push(u);
+          } else {
+            offlineUsers.push(u);
+          }
+        });
+
+        // Helper to build a user chat-item DOM element
+        const buildUserItem = (u, isOnline) => {
           const item = document.createElement('div');
           const realName     = u.displayName || u.username || 'Member';
           const avatarUrl    = u.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realName)}`;
@@ -3463,13 +3493,13 @@
 
           item.innerHTML = `
             <div class="online-avatar-wrap">
-              <img src="${avatarUrl}" class="avatar">
-              <div class="online-dot"></div>
+              <img src="${avatarUrl}" class="avatar" ${isOnline ? '' : 'style="filter:grayscale(0.4);"'}>
+              <div class="${isOnline ? 'online-dot' : 'offline-dot'}"></div>
             </div>
             <div class="chat-details" style="display:flex;align-items:center;width:100%;">
               <div style="flex:1;min-width:0;">
                 <h4 style="margin:0;font-size:14px;color:var(--text-main);">${ChatEngine.escapeHtml(realName)}</h4>
-                <p style="margin:2px 0 0;font-size:11.5px;color:#00E676;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🟢 Online</p>
+                <p style="margin:2px 0 0;font-size:11.5px;color:${isOnline ? '#00E676' : 'var(--text-sub)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${isOnline ? '🟢 Online' : '⚪ Offline'}</p>
               </div>
               ${mkBadge(privateRoomId)}
             </div>
@@ -3477,14 +3507,24 @@
           return item;
         };
 
-        // ── RENDER ONLINE USERS (with section label if any exist) ──
+        // Render Online Section
         if (onlineUsers.length > 0) {
           const lbl = document.createElement('div');
           lbl.className  = 'presence-section-label label-online';
           lbl.innerHTML  = `🟢 Active — ${onlineUsers.length}`;
           chatList.appendChild(lbl);
-          onlineUsers.forEach(u => chatList.appendChild(buildUserItem(u)));
+          onlineUsers.forEach(u => chatList.appendChild(buildUserItem(u, true)));
         }
+
+        // Render Offline Section
+        if (offlineUsers.length > 0) {
+          const lbl = document.createElement('div');
+          lbl.className  = 'presence-section-label label-offline';
+          lbl.innerHTML  = `⚪ Offline — ${offlineUsers.length}`;
+          chatList.appendChild(lbl);
+          offlineUsers.forEach(u => chatList.appendChild(buildUserItem(u, false)));
+        }
+
       },
 
       renderOnlinePanel() {
@@ -3647,29 +3687,19 @@
       },
 
       openOnlineMembersModal() {
-        const modalList = document.getElementById('modalOnlineList');
-        const sourcePanel = document.getElementById('onlineList');
-        if (!modalList || !sourcePanel) return;
-
-        // Copy rendered list content
-        modalList.innerHTML = sourcePanel.innerHTML;
-
-        // Auto-close modal when an online user is selected
-        const items = modalList.querySelectorAll('.online-item');
-        items.forEach(item => {
-          const oldClick = item.onclick;
-          item.onclick = () => {
-            if (oldClick) oldClick();
-            ChatEngine.closeOnlineMembersModal();
-          };
-        });
-
-        document.getElementById('onlineMembersModal').style.display = 'flex';
+        const panel = document.getElementById('onlinePanelContainer');
+        if (panel) {
+          panel.classList.add('open');
+        }
       },
 
-      closeOnlineMembersModal() {
-        document.getElementById('onlineMembersModal').style.display = 'none';
+      closeOnlinePanel() {
+        const panel = document.getElementById('onlinePanelContainer');
+        if (panel) {
+          panel.classList.remove('open');
+        }
       },
+
 
 
       /**
@@ -3714,7 +3744,9 @@
       },
 
       selectChat(id, name, avatarUrl, isAI, targetUserId = null) {
+        ChatEngine.closeOnlinePanel();
         if (StateStore.socket && StateStore.currentChatId) StateStore.socket.emit('leave_chat', StateStore.currentChatId);
+
 
         // Clear unread badge counter for this chat
         StateStore.unreadCounts[id] = 0;
