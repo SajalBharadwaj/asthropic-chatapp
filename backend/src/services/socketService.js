@@ -122,6 +122,45 @@ function initializeSockets(io) {
       socket.emit('connected');
     });
 
+    socket.on('heartbeat', async ({ userId }) => {
+      if (!userId) return;
+      const lastSeenDate = new Date();
+      if (onlineUsersMap.has(userId)) {
+        const userObj = onlineUsersMap.get(userId);
+        if (userObj) {
+          userObj.isOnline = true;
+          userObj.lastSeen = lastSeenDate.toISOString();
+          onlineUsersMap.set(userId, userObj);
+        }
+      } else {
+        // Restore session if desynced
+        const User = require('../models/User');
+        let displayName = 'Member';
+        let avatarUrl = '';
+        if (mongoose.connection.readyState === 1) {
+          try {
+            const dbUser = await User.findById(userId);
+            if (dbUser) {
+              displayName = dbUser.displayName || dbUser.username;
+              avatarUrl = dbUser.avatarUrl;
+            }
+          } catch (e) {}
+        }
+        const restoredUser = {
+          _id: userId,
+          displayName,
+          avatarUrl: avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(displayName)}`,
+          isOnline: true,
+          lastSeen: lastSeenDate.toISOString()
+        };
+        onlineUsersMap.set(userId, restoredUser);
+        userSockets.set(userId, socket.id);
+        io.emit('online_users_list', Array.from(onlineUsersMap.values()));
+        io.emit('user_presence', { userId, isOnline: true, user: restoredUser });
+      }
+    });
+
+
     // Profile Updates
     socket.on('update_profile', ({ userId, displayName, avatarUrl }) => {
       if (onlineUsersMap.has(userId)) {

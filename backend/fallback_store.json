@@ -193,8 +193,8 @@
         "role": "user",
         "isPro": false,
         "proActivatedAt": null,
-        "isOnline": false,
-        "lastSeen": "2026-07-24T11:23:27.615Z"
+        "isOnline": true,
+        "lastSeen": "2026-07-24T12:14:11.944Z"
       }
     ],
     [
@@ -211,8 +211,8 @@
         "role": "user",
         "isPro": false,
         "proActivatedAt": null,
-        "isOnline": false,
-        "lastSeen": "2026-07-24T11:23:27.615Z"
+        "isOnline": true,
+        "lastSeen": "2026-07-24T12:14:11.944Z"
       }
     ],
     [
@@ -229,8 +229,8 @@
         "role": "user",
         "isPro": false,
         "proActivatedAt": null,
-        "isOnline": false,
-        "lastSeen": "2026-07-24T11:23:27.615Z"
+        "isOnline": true,
+        "lastSeen": "2026-07-24T12:14:11.944Z"
       }
     ]
   ],
