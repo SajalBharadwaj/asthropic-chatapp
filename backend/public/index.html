@@ -482,6 +482,30 @@
     /* Hide upgrade button when user is already Pro */
     .btn-upgrade-nav[data-hidden="true"] { display: none; }
 
+    /* ── REFRESH STATUS BUTTON ── */
+    .btn-refresh-nav {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .btn-refresh-nav:hover {
+      background: rgba(255,255,255,0.18);
+      transform: rotate(180deg);
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+
     /* ── OWNER / ADMIN PANEL BUTTON ── */
     .btn-owner-panel {
       display: none; /* shown only to owner/admin via JS */
@@ -1289,19 +1313,23 @@
 
     /* MOBILE SCREENS (<= 768px) */
     @media (max-width: 768px) {
-      .navbar { padding: 0 10px; height: 56px; }
+      .navbar { padding: 0 8px; height: 56px; }
       .navbar-brand .brand-text { display: none; }
-      .brand-logo-svg { width: 32px; height: 32px; }
+      .brand-logo-svg { width: 28px; height: 28px; }
       .nav-links { display: none; }
       .mobile-nav-bar { display: flex; }
       .sidebar-tabs { display: flex; }
       
-      .navbar-controls { gap: 6px; }
-      .style-selector { padding: 4px 6px; font-size: 10.5px; max-width: 105px; text-overflow: ellipsis; }
-      .nav-profile { padding: 2px 6px; gap: 4px; max-width: 135px; }
-      .nav-profile h4 { max-width: 48px; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      .nav-avatar-img, .nav-avatar-initial { width: 28px; height: 28px; font-size: 11px; }
-      .btn-edit-profile { padding: 2px 6px; font-size: 10px; }
+      .navbar-controls { gap: 4px; }
+      .style-selector { padding: 4px 6px; font-size: 10px; max-width: 80px; text-overflow: ellipsis; border-radius: 12px; }
+      .btn-upgrade-nav span, .btn-owner-panel span { display: none !important; }
+      .btn-upgrade-nav { padding: 6px 8px; border-radius: 50%; min-width: 32px; height: 32px; justify-content: center; align-items: center; }
+      .btn-owner-panel { padding: 6px 8px; border-radius: 50%; min-width: 32px; height: 32px; justify-content: center; align-items: center; }
+      .btn-refresh-nav { width: 32px; height: 32px; font-size: 13px; }
+      .nav-profile { padding: 0; gap: 0; background: transparent; border: none; max-width: 36px; box-shadow: none; }
+      .nav-profile > div:nth-child(2), #navPlanBadge, .btn-edit-profile, .nav-profile button { display: none !important; }
+      .nav-avatar-img, .nav-avatar-initial { width: 30px; height: 30px; font-size: 11px; }
+
 
       .app-body:not(.mobile-chat-active) .sidebar { display: flex; width: 100%; border-right: none; }
       .app-body:not(.mobile-chat-active) .chat-area { display: none !important; }
@@ -1598,7 +1626,13 @@
         🛡️ <span>Admin Panel</span>
       </button>
 
-      <div class="nav-profile">
+      <!-- REFRESH STATUS BUTTON -->
+      <button id="btnRefreshNav" class="btn-refresh-nav" onclick="ChatEngine.forceRefresh()" title="Force Sync Status & Chats">
+        🔄
+      </button>
+
+      <div class="nav-profile" onclick="if(window.innerWidth <= 768) ModalManager.openEditProfileModal()" style="cursor: pointer;">
+
         <div id="myNavAvatarContainer">
           <div class="nav-avatar-initial" id="myNavAvatarInit">A</div>
         </div>
@@ -1781,10 +1815,14 @@
         </div>
       </div>
 
-      <div class="modal-btns" style="margin-top: 20px;">
-        <button class="btn-modal-action btn-del-everyone" style="background: var(--accent);" onclick="AuthManager.saveProfileChanges()">Save Changes</button>
-        <button class="btn-del-cancel" onclick="ModalManager.closeEditProfileModal()">Cancel</button>
+      <div class="modal-btns" style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px;">
+        <button class="btn-modal-action btn-del-everyone" style="background: var(--accent); width: 100%;" onclick="AuthManager.saveProfileChanges()">Save Changes</button>
+        <div style="display: flex; gap: 8px; width: 100%;">
+          <button class="btn-del-cancel" style="flex: 1;" onclick="ModalManager.closeEditProfileModal()">Cancel</button>
+          <button class="btn-del-cancel" style="flex: 1; background: rgba(255, 51, 102, 0.15); color: #FF3366; border: 1px solid rgba(255, 51, 102, 0.3);" onclick="AuthManager.logout(); ModalManager.closeEditProfileModal();">🚪 Log Out</button>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -3079,6 +3117,37 @@
           console.warn('[Sync Profile] Failed to connect:', e.message);
         }
       },
+
+      async forceRefresh() {
+        const btn = document.getElementById('btnRefreshNav');
+        if (btn) {
+          btn.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+          btn.style.transform = 'rotate(720deg)';
+          setTimeout(() => { btn.style.transform = 'none'; }, 600);
+        }
+        
+        try {
+          // Re-sync registered users list
+          await ChatEngine.fetchRegisteredUsers();
+          
+          // Re-sync profile details
+          await ChatEngine.syncProfileFromServer();
+          
+          // Re-trigger socket online user fetching
+          if (StateStore.socket) {
+            if (!StateStore.socket.connected) {
+              StateStore.socket.connect();
+            }
+            StateStore.socket.emit('setup', StateStore.currentUser);
+            StateStore.socket.emit('get_online_users');
+          }
+          
+          SubscriptionManager.showGateToast('🔄 Status Synced Successfully!', 2500);
+        } catch (e) {
+          console.warn('[Sync Error]:', e.message);
+        }
+      },
+
 
       async fetchRegisteredUsers(query = '') {
         try {

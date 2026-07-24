@@ -143,8 +143,8 @@
         "email": "sajalsharma46777@gmail.com",
         "isPro": false,
         "username": "ravi",
-        "isOnline": true,
-        "lastSeen": "2026-07-24T10:25:14.563Z"
+        "isOnline": false,
+        "lastSeen": "2026-07-24T11:16:05.692Z"
       }
     ],
     [
@@ -178,6 +178,60 @@
         "statusMessage": "Official AI Assistant",
         "username": "asthropic_ai"
       }
+    ],
+    [
+      "iron@1234",
+      {
+        "_id": "user_1784892074877_806",
+        "username": "iron",
+        "displayName": "Iron",
+        "email": "iron@1234",
+        "phoneNumber": "12343233443434343",
+        "password": "123456",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Iron",
+        "statusMessage": "Hey there! I am using Asthropic ChatApp.",
+        "role": "user",
+        "isPro": false,
+        "proActivatedAt": null,
+        "isOnline": false,
+        "lastSeen": "2026-07-24T11:23:27.615Z"
+      }
+    ],
+    [
+      "iron",
+      {
+        "_id": "user_1784892074877_806",
+        "username": "iron",
+        "displayName": "Iron",
+        "email": "iron@1234",
+        "phoneNumber": "12343233443434343",
+        "password": "123456",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Iron",
+        "statusMessage": "Hey there! I am using Asthropic ChatApp.",
+        "role": "user",
+        "isPro": false,
+        "proActivatedAt": null,
+        "isOnline": false,
+        "lastSeen": "2026-07-24T11:23:27.615Z"
+      }
+    ],
+    [
+      "12343233443434343",
+      {
+        "_id": "user_1784892074877_806",
+        "username": "iron",
+        "displayName": "Iron",
+        "email": "iron@1234",
+        "phoneNumber": "12343233443434343",
+        "password": "123456",
+        "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Iron",
+        "statusMessage": "Hey there! I am using Asthropic ChatApp.",
+        "role": "user",
+        "isPro": false,
+        "proActivatedAt": null,
+        "isOnline": false,
+        "lastSeen": "2026-07-24T11:23:27.615Z"
+      }
     ]
   ],
   "logoutLogs": [
@@ -191,6 +245,14 @@
     }
   ],
   "loginLogs": [
+    {
+      "id": "login_1784892074896_274",
+      "userId": "user_1784892074877_806",
+      "displayName": "Iron",
+      "email": "iron@1234",
+      "timestamp": "2026-07-24T11:21:14.896Z",
+      "ip": "192.168.1.15"
+    },
     {
       "id": "login_demo_1",
       "userId": "user_owner_demo",
