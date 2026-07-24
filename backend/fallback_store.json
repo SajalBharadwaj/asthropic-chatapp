@@ -143,8 +143,8 @@
         "email": "sajalsharma46777@gmail.com",
         "isPro": false,
         "username": "ravi",
-        "isOnline": false,
-        "lastSeen": "2026-07-24T11:16:05.692Z"
+        "isOnline": true,
+        "lastSeen": "2026-07-24T16:17:35.028Z"
       }
     ],
     [
@@ -194,7 +194,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T12:17:53.201Z"
+        "lastSeen": "2026-07-24T16:16:48.853Z"
       }
     ],
     [
@@ -212,7 +212,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T12:17:53.201Z"
+        "lastSeen": "2026-07-24T16:16:48.853Z"
       }
     ],
     [
@@ -230,7 +230,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T12:17:53.201Z"
+        "lastSeen": "2026-07-24T16:16:48.853Z"
       }
     ]
   ],
@@ -263,6 +263,14 @@
     }
   ],
   "callLogs": [
+    {
+      "id": "call_1784907427392_959",
+      "callerName": "Ravi",
+      "recipientName": "Iron",
+      "status": "Declined",
+      "duration": "-",
+      "timestamp": "2026-07-24T15:37:07.392Z"
+    },
     {
       "id": "call_1784877709968_615",
       "callerName": "Ravi",

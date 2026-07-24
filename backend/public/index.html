@@ -20,7 +20,27 @@
     /* ==========================================================================
        1. CORE ULTRA-MODERN DESIGN SYSTEM & THEME TOKENS
        ========================================================================== */
+    :root[data-theme="modern-light"] {
+      --bg-main: #EEF2F6;
+      --bg-card: #FFFFFF;
+      --bg-header: #EEF2F6;
+      --bg-hover: #E9EDF2;
+      --text-main: #111927;
+      --text-sub: #6B7280;
+      --accent: #5C6BC0;
+      --accent-secondary: #00E676;
+      --accent-glow: rgba(92, 107, 192, 0.15);
+      --accent-hover: #3F51B5;
+      --bubble-mine: #E9EDF2;
+      --bubble-other: #FFFFFF;
+      --bubble-ai: #FFF9DB;
+      --border: #E5E7EB;
+      --radius-bubble: 12px;
+      --font-family: 'Outfit', 'Inter', sans-serif;
+    }
+
     :root[data-theme="spiderman-dark"] {
+
       --bg-main: #0B0D10;
       --bg-card: rgba(21, 24, 28, 0.85);
       --bg-header: rgba(28, 32, 38, 0.92);
@@ -191,7 +211,8 @@
       --font-family: 'Outfit', 'Inter', sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-family); transition: background 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s, border-color 0.25s; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-family); transition: none !important; animation: none !important; }
+
     body { background: var(--bg-main); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; background-image: radial-gradient(circle at 10% 20%, rgba(230, 36, 41, 0.04) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(4, 118, 208, 0.04) 0%, transparent 40%); }
 
     /* CHAT AREA WALLPAPER LAYER */
@@ -481,30 +502,6 @@
     }
     /* Hide upgrade button when user is already Pro */
     .btn-upgrade-nav[data-hidden="true"] { display: none; }
-
-    /* ── REFRESH STATUS BUTTON ── */
-    .btn-refresh-nav {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      font-size: 15px;
-      flex-shrink: 0;
-    }
-    .btn-refresh-nav:hover {
-      background: rgba(255,255,255,0.18);
-      transform: rotate(180deg);
-      border-color: var(--accent);
-      box-shadow: 0 0 12px var(--accent-glow);
-    }
-
 
     /* ── OWNER / ADMIN PANEL BUTTON ── */
     .btn-owner-panel {
@@ -1146,10 +1143,7 @@
       border-left: 1px solid rgba(255,255,255,0.07);
       display: flex; flex-direction: column;
       box-shadow: -2px 0 28px rgba(0,0,0,0.4);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-
     .online-header {
       background: rgba(32,44,51,0.8);
       padding: 14px 16px;
@@ -1316,23 +1310,19 @@
 
     /* MOBILE SCREENS (<= 768px) */
     @media (max-width: 768px) {
-      .navbar { padding: 0 8px; height: 56px; }
+      .navbar { padding: 0 10px; height: 56px; }
       .navbar-brand .brand-text { display: none; }
-      .brand-logo-svg { width: 28px; height: 28px; }
+      .brand-logo-svg { width: 32px; height: 32px; }
       .nav-links { display: none; }
       .mobile-nav-bar { display: flex; }
       .sidebar-tabs { display: flex; }
       
-      .navbar-controls { gap: 4px; }
-      .style-selector { padding: 4px 6px; font-size: 10px; max-width: 80px; text-overflow: ellipsis; border-radius: 12px; }
-      .btn-upgrade-nav span, .btn-owner-panel span { display: none !important; }
-      .btn-upgrade-nav { padding: 6px 8px; border-radius: 50%; min-width: 32px; height: 32px; justify-content: center; align-items: center; }
-      .btn-owner-panel { padding: 6px 8px; border-radius: 50%; min-width: 32px; height: 32px; justify-content: center; align-items: center; }
-      .btn-refresh-nav { width: 32px; height: 32px; font-size: 13px; }
-      .nav-profile { padding: 0; gap: 0; background: transparent; border: none; max-width: 36px; box-shadow: none; }
-      .nav-profile > div:nth-child(2), #navPlanBadge, .btn-edit-profile, .nav-profile button { display: none !important; }
-      .nav-avatar-img, .nav-avatar-initial { width: 30px; height: 30px; font-size: 11px; }
-
+      .navbar-controls { gap: 6px; }
+      .style-selector { padding: 4px 6px; font-size: 10.5px; max-width: 105px; text-overflow: ellipsis; }
+      .nav-profile { padding: 2px 6px; gap: 4px; max-width: 135px; }
+      .nav-profile h4 { max-width: 48px; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .nav-avatar-img, .nav-avatar-initial { width: 28px; height: 28px; font-size: 11px; }
+      .btn-edit-profile { padding: 2px 6px; font-size: 10px; }
 
       .app-body:not(.mobile-chat-active) .sidebar { display: flex; width: 100%; border-right: none; }
       .app-body:not(.mobile-chat-active) .chat-area { display: none !important; }
@@ -1340,19 +1330,7 @@
       .app-body.mobile-chat-active .sidebar { display: none !important; }
       .app-body.mobile-chat-active .chat-area { display: flex; width: 100%; }
 
-      .online-panel {
-        position: fixed; top: 0; right: 0; width: 280px; height: 100%;
-        z-index: 1500; background: var(--bg-card); border-left: 1px solid var(--border);
-        box-shadow: -10px 0 40px rgba(0,0,0,0.6);
-        transform: translateX(100%);
-        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        display: flex !important;
-      }
-      .online-panel.open {
-        transform: translateX(0);
-      }
-      .mobile-only-close { display: inline-block !important; }
-
+      .online-panel { display: none !important; }
 
       .mobile-back-btn { display: inline-flex !important; align-items: center; justify-content: center; font-size: 18px; margin-right: 8px; cursor: pointer; background: rgba(255,255,255,0.12); width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; }
 
@@ -1377,65 +1355,6 @@
       .daily-quote { font-size: 14.5px; }
       .shayari-grid { grid-template-columns: 1fr; }
     }
-
-    /* ── MOBILE SLIDING SETTINGS DRAWER ── */
-    .mobile-hamburger-btn {
-      display: none; background: transparent; border: none;
-      color: var(--text-main); font-size: 22px; cursor: pointer;
-      padding: 4px; margin-right: 8px; flex-shrink: 0; outline: none;
-    }
-    .settings-drawer-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6); z-index: 2000;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex; justify-content: flex-start;
-    }
-    .settings-drawer-overlay.open {
-      opacity: 1; pointer-events: auto;
-    }
-    .settings-drawer-card {
-      width: 290px; height: 100%; background: var(--bg-card);
-      border-right: 1px solid var(--border);
-      box-shadow: 10px 0 40px rgba(0,0,0,0.6);
-      transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex; flex-direction: column; overflow-y: auto;
-    }
-    .settings-drawer-overlay.open .settings-drawer-card {
-      transform: translateX(0);
-    }
-    .drawer-header {
-      padding: 16px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      background: var(--bg-header);
-    }
-    .drawer-header h3 { font-size: 16px; color: var(--text-main); font-weight: 800; margin: 0; }
-    .drawer-close-btn { background: none; border: none; color: var(--text-sub); font-size: 20px; cursor: pointer; }
-    .drawer-profile-section {
-      padding: 24px 16px; border-bottom: 1px solid var(--border);
-      display: flex; flex-direction: column; align-items: center; text-align: center;
-      background: rgba(0,0,0,0.15);
-    }
-    .drawer-avatar-wrap {
-      width: 68px; height: 68px; border-radius: 50%;
-      background: var(--accent); margin-bottom: 12px;
-      display: flex; align-items: center; justify-content: center;
-      border: 2px solid var(--accent); box-shadow: 0 0 16px var(--accent-glow);
-    }
-    .drawer-avatar-init { font-size: 24px; font-weight: 800; color: #fff; text-transform: uppercase; }
-    .drawer-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-    .drawer-menu-links { display: flex; flex-direction: column; padding: 12px 0; }
-    .drawer-menu-links button {
-      background: transparent; border: none; text-align: left; padding: 12px 20px;
-      color: var(--text-main); font-size: 14.5px; font-weight: 600; cursor: pointer;
-      transition: background 0.2s; outline: none; width: 100%;
-    }
-    .drawer-menu-links button:hover { background: var(--bg-hover); color: var(--accent); }
-    .drawer-divider { height: 1px; background: var(--border); margin: 8px 0; }
-
-    @media (max-width: 768px) {
-      .mobile-hamburger-btn { display: inline-block; }
-    }
-
 
     /* SMALL MOBILE PHONES (<= 480px) */
     @media (max-width: 480px) {
@@ -1653,10 +1572,10 @@
     </div>
   </div>
 
+  <!-- APPLICATION NAVIGATION BAR -->
   <nav class="navbar" id="mainNavbar">
-    <div class="navbar-brand">
-      <button class="mobile-hamburger-btn" onclick="DrawerManager.open()">☰</button>
-      <svg class="brand-logo-svg" viewBox="0 0 100 100" onclick="NavigationEngine.navigateTo('chat')" style="cursor:pointer;">
+    <div class="navbar-brand" onclick="NavigationEngine.navigateTo('chat')">
+      <svg class="brand-logo-svg" viewBox="0 0 100 100">
         <defs>
           <linearGradient id="gNav" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#E62429"/>
@@ -1667,12 +1586,11 @@
         <path d="M50 18 L76 75 H60 L54 60 H46 L40 75 H24 Z M50 36 L43 50 H57 Z" fill="#FFFFFF"/>
         <circle cx="72" cy="28" r="8" fill="#FFC107"/>
       </svg>
-      <span class="brand-text" onclick="NavigationEngine.navigateTo('chat')" style="cursor:pointer;">Asthropic</span>
+      <span class="brand-text">Asthropic</span>
     </div>
 
     <div class="nav-links">
       <button class="nav-link-btn active" id="nav_chat" onclick="NavigationEngine.navigateTo('chat')">💬 Chats</button>
-      <button class="nav-link-btn" id="nav_online_members" onclick="ChatEngine.openOnlineMembersModal()" title="View Online Members list">🟢 Online (<span id="navOnlineCount">1</span>)</button>
       <button class="nav-link-btn" id="nav_shayari" onclick="NavigationEngine.navigateTo('shayari')">😂 Daily Shayari & Jokes</button>
       <button class="nav-link-btn" id="nav_about" onclick="NavigationEngine.navigateTo('about')">📖 About</button>
       <button class="nav-link-btn" id="nav_contact" onclick="NavigationEngine.navigateTo('contact')">📞 Contact</button>
@@ -1680,7 +1598,9 @@
 
     <div class="navbar-controls">
       <select class="style-selector" id="styleSelector" onchange="StateStore.changeUIStyle(this.value)">
+        <option value="modern-light">💡 Modern Light</option>
         <option value="spiderman-dark">🕷️ Spider-Man</option>
+
         <option value="whatsapp-dark">📱 WhatsApp Dark</option>
         <option value="telegram-dark">✈️ Telegram</option>
         <option value="discord-dark">🎮 Discord</option>
@@ -1701,20 +1621,7 @@
         🛡️ <span>Admin Panel</span>
       </button>
 
-      <!-- MOBILE ONLINE MEMBERS TRIGGER -->
-      <button id="btnOnlineNavMobile" class="btn-refresh-nav" style="color: #00E676; border-color: rgba(0,230,118,0.3);" onclick="ChatEngine.openOnlineMembersModal()" title="Online Members list">
-        🟢 <span id="navOnlineCountMobile" style="font-size: 11px; font-weight: 800; margin-left: 2px;">1</span>
-      </button>
-
-      <!-- REFRESH STATUS BUTTON -->
-      <button id="btnRefreshNav" class="btn-refresh-nav" onclick="ChatEngine.forceRefresh()" title="Force Sync Status & Chats">
-        🔄
-      </button>
-
-
-      <div class="nav-profile" onclick="if(window.innerWidth <= 768) { DrawerManager.open(); } else { ModalManager.openEditProfileModal(); }" style="cursor: pointer;">
-
-
+      <div class="nav-profile">
         <div id="myNavAvatarContainer">
           <div class="nav-avatar-initial" id="myNavAvatarInit">A</div>
         </div>
@@ -1844,15 +1751,11 @@
       </div>
     </div>
 
-    <div class="online-panel" id="onlinePanelContainer">
+    <div class="online-panel">
       <div class="online-header">
         <h4>🟢 Online Members</h4>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span class="online-count-badge" id="onlineCountBadge">1 Active</span>
-          <button class="mobile-only-close" onclick="ChatEngine.closeOnlinePanel()" style="display: none; background: none; border: none; color: var(--text-sub); font-size: 18px; cursor: pointer; padding: 0 4px; font-weight: bold; outline: none;">✕</button>
-        </div>
+        <span class="online-count-badge" id="onlineCountBadge">1 Active</span>
       </div>
-
       <div class="online-list" id="onlineList">
         <div class="online-item" onclick="ChatEngine.selectChat('ai_bot', 'Asthropic Gemini AI', 'https://api.dicebear.com/7.x/bottts/svg?seed=Gemini', true)">
           <div class="online-avatar-wrap">
@@ -1901,14 +1804,10 @@
         </div>
       </div>
 
-      <div class="modal-btns" style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px;">
-        <button class="btn-modal-action btn-del-everyone" style="background: var(--accent); width: 100%;" onclick="AuthManager.saveProfileChanges()">Save Changes</button>
-        <div style="display: flex; gap: 8px; width: 100%;">
-          <button class="btn-del-cancel" style="flex: 1;" onclick="ModalManager.closeEditProfileModal()">Cancel</button>
-          <button class="btn-del-cancel" style="flex: 1; background: rgba(255, 51, 102, 0.15); color: #FF3366; border: 1px solid rgba(255, 51, 102, 0.3);" onclick="AuthManager.logout(); ModalManager.closeEditProfileModal();">🚪 Log Out</button>
-        </div>
+      <div class="modal-btns" style="margin-top: 20px;">
+        <button class="btn-modal-action btn-del-everyone" style="background: var(--accent);" onclick="AuthManager.saveProfileChanges()">Save Changes</button>
+        <button class="btn-del-cancel" onclick="ModalManager.closeEditProfileModal()">Cancel</button>
       </div>
-
     </div>
   </div>
 
@@ -2284,62 +2183,7 @@
   </div>
   <audio id="remoteAudio" autoplay></audio>
 
-  <!-- MOBILE SLIDING SETTINGS DRAWER -->
-  <div id="settingsDrawer" class="settings-drawer-overlay" onclick="DrawerManager.close()">
-    <div class="settings-drawer-card" onclick="event.stopPropagation()">
-      <div class="drawer-header">
-        <h3>Menu & Settings</h3>
-        <button class="drawer-close-btn" onclick="DrawerManager.close()">✕</button>
-      </div>
-      <div class="drawer-profile-section">
-        <div class="drawer-avatar-wrap" id="drawerAvatarWrap">
-          <div class="drawer-avatar-init" id="drawerAvatarInit">A</div>
-        </div>
-        <h4 id="drawerDisplayName" style="margin: 0; font-size: 16px; color: var(--text-main); font-weight:800;">Aman</h4>
-        <p id="drawerEmail" style="font-size:12px; color:var(--text-sub); margin: 4px 0 8px 0;"></p>
-        <span id="drawerPlanBadge" class="free-badge" style="display:inline-block; font-size:11px;">⭐ Free</span>
-      </div>
-      <div class="drawer-menu-links">
-        <button onclick="DrawerManager.triggerEditProfile()">✏️ Edit Profile</button>
-        <button onclick="DrawerManager.triggerAdminPanel()" id="drawerAdminBtn" style="display:none;">🛡️ Admin Control Panel</button>
-        <button onclick="DrawerManager.triggerUpgrade()" id="drawerUpgradeBtn">⚡ Upgrade to Pro</button>
-        <div class="drawer-divider"></div>
-        <div style="padding: 10px 16px;">
-          <label style="font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase;">App Theme</label>
-          <select class="style-selector" id="drawerStyleSelector" onchange="StateStore.changeUIStyle(this.value); DrawerManager.close();" style="width: 100%; margin-top: 6px; max-width: 100%;">
-            <option value="spiderman-dark">🕷️ Spider-Man</option>
-            <option value="whatsapp-dark">📱 WhatsApp Dark</option>
-            <option value="telegram-dark">✈️ Telegram</option>
-            <option value="discord-dark">🎮 Discord</option>
-            <option value="whatsapp-light">☀️ WhatsApp Light</option>
-            <option value="cyberpunk-neon">⚡ Cyberpunk 🔒</option>
-            <option value="midnight-aurora">🌙 Aurora 🔒</option>
-            <option value="sunset-rose">🌸 Sunset 🔒</option>
-            <option value="cosmic-galaxy">🌌 Cosmic Galaxy 🔒</option>
-          </select>
-        </div>
-        <div class="drawer-divider"></div>
-        <button onclick="AuthManager.logout(); DrawerManager.close();" style="color: #FF3366; font-weight:700; background:none; border:none; text-align:left;">🚪 Log Out</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ONLINE MEMBERS MODAL -->
-  <div id="onlineMembersModal" class="modal-overlay" onclick="ChatEngine.closeOnlineMembersModal()">
-    <div class="modal-card" onclick="event.stopPropagation()" style="width: 360px; max-width: 90%; max-height: 80vh; display:flex; flex-direction:column; padding: 24px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom: 12px; margin-bottom: 16px;">
-        <h3 style="margin:0; font-size:18px; color:var(--text-main); font-weight:800;">🟢 Online Members</h3>
-        <button class="drawer-close-btn" onclick="ChatEngine.closeOnlineMembersModal()">✕</button>
-      </div>
-      <div id="modalOnlineList" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap: 12px; margin-bottom: 16px; padding-right:4px;">
-        <!-- Online members populated here -->
-      </div>
-      <button class="btn-del-cancel" style="width:100%; padding:10px; background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:20px; font-weight:700; color:var(--text-main);" onclick="ChatEngine.closeOnlineMembersModal()">Close</button>
-    </div>
-  </div>
-
   <!-- CONTENT PAGES -->
-
   <div class="content-page" id="page_shayari">
     <div class="page-card">
       <h2>😂 Daily Rotating Shayari & Jokes Vault</h2>
@@ -2587,7 +2431,7 @@
 
       restoreUserPreferences() {
         const userId = this.currentUser ? this.currentUser._id : 'guest';
-        const savedTheme = SafeStorage.getItem(`asthropic_theme_${userId}`) || SafeStorage.getItem('asthropic_theme') || 'whatsapp-dark';
+        const savedTheme = SafeStorage.getItem(`asthropic_theme_${userId}`) || SafeStorage.getItem('asthropic_theme') || 'modern-light';
         document.documentElement.setAttribute('data-theme', savedTheme);
         const styleSel = document.getElementById('styleSelector');
         if (styleSel) styleSel.value = savedTheme;
@@ -2601,7 +2445,7 @@
         const proThemes = ['cyberpunk-neon', 'midnight-aurora', 'sunset-rose', 'cosmic-galaxy'];
         if (proThemes.includes(themeStyle) && !SubscriptionManager.isPro()) {
           // Snap the dropdown back to previous safe value
-          const currentSafe = document.documentElement.getAttribute('data-theme') || 'spiderman-dark';
+          const currentSafe = document.documentElement.getAttribute('data-theme') || 'modern-light';
           document.getElementById('styleSelector').value = currentSafe;
           SubscriptionManager.openUpgradeModal('theme');
           return;
@@ -2612,6 +2456,7 @@
         SafeStorage.setItem(`asthropic_theme_${userId}`, themeStyle);
         SafeStorage.setItem('asthropic_theme', themeStyle);
       }
+
     };
 
     /* --------------------------------------------------------------------------
@@ -2833,67 +2678,6 @@
       }
     };
 
-    /* ── MOBILE SETTINGS DRAWER CONTROLLER ── */
-    const DrawerManager = {
-      open() {
-        const user = StateStore.currentUser;
-        if (!user) return;
-
-        const realName = user.displayName || user.username || 'Member';
-        const initLetter = realName.charAt(0).toUpperCase();
-
-        document.getElementById('drawerDisplayName').innerText = realName;
-        document.getElementById('drawerEmail').innerText = user.email || '';
-
-        const initContainer = document.getElementById('drawerAvatarInit');
-        if (user.avatarUrl) {
-          document.getElementById('drawerAvatarWrap').innerHTML = `<img src="${user.avatarUrl}" class="drawer-avatar-img">`;
-        } else {
-          document.getElementById('drawerAvatarWrap').innerHTML = `<div class="drawer-avatar-init">${initLetter}</div>`;
-        }
-
-        // Plan Badge
-        const badge = document.getElementById('drawerPlanBadge');
-        if (SubscriptionManager.isPro()) {
-          badge.className = 'pro-badge';
-          badge.innerText = '👑 PRO';
-          badge.title = 'Asthropic Pro - Active';
-          document.getElementById('drawerUpgradeBtn').style.display = 'none';
-        } else {
-          badge.className = 'free-badge';
-          badge.innerText = '⭐ Free';
-          badge.title = 'Upgrade to Pro';
-          document.getElementById('drawerUpgradeBtn').style.display = 'block';
-        }
-
-        // Admin Button
-        const isAdmin = user.role === 'owner' || user.role === 'admin';
-        document.getElementById('drawerAdminBtn').style.display = isAdmin ? 'block' : 'none';
-
-        // Style Selector Synchronization
-        const currentTheme = localStorage.getItem('asthropic_theme') || 'whatsapp-dark';
-        document.getElementById('drawerStyleSelector').value = currentTheme;
-
-        document.getElementById('settingsDrawer').classList.add('open');
-      },
-      close() {
-        document.getElementById('settingsDrawer').classList.remove('open');
-      },
-      triggerEditProfile() {
-        this.close();
-        ModalManager.openEditProfileModal();
-      },
-      triggerAdminPanel() {
-        this.close();
-        RoleManager.openPanel();
-      },
-      triggerUpgrade() {
-        this.close();
-        SubscriptionManager.openUpgradeModal();
-      }
-    };
-
-
     /* --------------------------------------------------------------------------
        3b. FORGOT PASSWORD MANAGER (Password Reset & Recovery Engine)
        -------------------------------------------------------------------------- */
@@ -3018,7 +2802,7 @@
           StateStore.socket.emit('get_online_users');
         });
 
-        // Periodic heartbeat to prevent Render timeout and recover status
+        // Periodic heartbeat to prevent Render container sleep and sync presence
         if (ChatEngine._presenceInterval) clearInterval(ChatEngine._presenceInterval);
         ChatEngine._presenceInterval = setInterval(() => {
           if (StateStore.socket && StateStore.socket.connected && StateStore.currentUser) {
@@ -3026,7 +2810,7 @@
           }
         }, 25000);
 
-        // Real-time admin notifications for signup, login, and logout events
+        // Real-time notifications for admins on signup, login, and logout events
         StateStore.socket.on('new_user_registered', (newUser) => {
           const exists = StateStore.allRegisteredUsers.some(u => u._id === newUser._id);
           if (!exists && newUser._id !== StateStore.currentUser._id) {
@@ -3036,10 +2820,6 @@
           if (StateStore.currentUser && (StateStore.currentUser.role === 'owner' || StateStore.currentUser.role === 'admin')) {
             SubscriptionManager.showGateToast(`👤 New User Registered: ${newUser.displayName || newUser.username} (${newUser.email})`, 6000);
           }
-          const overlay = document.getElementById('ownerPanelOverlay');
-          if (overlay && overlay.classList.contains('open')) {
-            RoleManager.loadDashboard();
-          }
         });
 
         StateStore.socket.on('user_logged_in', ({ logEntry, user }) => {
@@ -3047,16 +2827,12 @@
             const name = user ? (user.displayName || user.username) : (logEntry.userEmail || 'A user');
             SubscriptionManager.showGateToast(`🟢 Login Alert: ${name} is now online`, 5000);
           }
-          // Dynamically refresh status
-          ChatEngine.forceRefresh();
         });
 
         StateStore.socket.on('user_logged_out', ({ logEntry }) => {
           if (StateStore.currentUser && (StateStore.currentUser.role === 'owner' || StateStore.currentUser.role === 'admin')) {
             SubscriptionManager.showGateToast(`⚪ Logout Alert: ${logEntry.userEmail || 'A user'} logged out`, 5000);
           }
-          // Dynamically refresh status
-          ChatEngine.forceRefresh();
         });
 
         StateStore.socket.on('online_users_list', (users) => {
@@ -3064,7 +2840,7 @@
           StateStore.onlineUsersArray = users;
           ChatEngine.renderOnlinePanel();
           ChatEngine.filterAndRenderUsers(document.getElementById('searchInput').value);
-          
+
           // Re-render active chat header status
           if (StateStore.currentTargetUserId) {
             const targetIsOnline = users.some(u => (u._id || u.id) === StateStore.currentTargetUserId);
@@ -3105,10 +2881,11 @@
           if (StateStore.currentTargetUserId === userId) {
             const sub = document.getElementById('activeChatSub');
             if (sub) {
-              sub.textContent = isOnline ? '🟢 Online' : '⚪ Last seen recently';
+              sub.textContent = isOnline ? '🟢 Active Now' : '⚪ Offline';
               sub.style.color  = isOnline ? '#00E676' : 'var(--text-sub)';
             }
           }
+
         });
 
         StateStore.socket.on('profile_updated', ({ userId, displayName, avatarUrl }) => {
@@ -3361,37 +3138,6 @@
         }
       },
 
-      async forceRefresh() {
-        const btn = document.getElementById('btnRefreshNav');
-        if (btn) {
-          btn.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-          btn.style.transform = 'rotate(720deg)';
-          setTimeout(() => { btn.style.transform = 'none'; }, 600);
-        }
-        
-        try {
-          // Re-sync registered users list
-          await ChatEngine.fetchRegisteredUsers();
-          
-          // Re-sync profile details
-          await ChatEngine.syncProfileFromServer();
-          
-          // Re-trigger socket online user fetching
-          if (StateStore.socket) {
-            if (!StateStore.socket.connected) {
-              StateStore.socket.connect();
-            }
-            StateStore.socket.emit('setup', StateStore.currentUser);
-            StateStore.socket.emit('get_online_users');
-          }
-          
-          SubscriptionManager.showGateToast('🔄 Status Synced Successfully!', 2500);
-        } catch (e) {
-          console.warn('[Sync Error]:', e.message);
-        }
-      },
-
-
       async fetchRegisteredUsers(query = '') {
         try {
           const url = query ? `/api/auth/users?search=${encodeURIComponent(query)}` : '/api/auth/users';
@@ -3467,13 +3213,14 @@
           </div>
         `;
 
-        // ── SHOW ALL REGISTERED USERS IN LEFT SIDEBAR ──
+        // ── SHOW ALL REGISTERED USERS IN LEFT SIDEBAR (ONLINE / OFFLINE) ──
         const onlineIds = new Set(StateStore.onlineUsersArray.map(u => u._id));
         const onlineUsers = [];
         const offlineUsers = [];
 
         users.forEach(u => {
-          if (onlineIds.has(u._id)) {
+          const isOnline = onlineIds.has(u._id) || u._id === (StateStore.currentUser && StateStore.currentUser._id);
+          if (isOnline) {
             onlineUsers.push(u);
           } else {
             offlineUsers.push(u);
@@ -3483,7 +3230,8 @@
         // Helper to build a user chat-item DOM element
         const buildUserItem = (u, isOnline) => {
           const item = document.createElement('div');
-          const realName     = u.displayName || u.username || 'Member';
+          const isMe = u._id === (StateStore.currentUser && StateStore.currentUser._id);
+          const realName     = (u.displayName || u.username || 'Member') + (isMe ? ' (You)' : '');
           const avatarUrl    = u.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realName)}`;
           const privateRoomId = 'dm_' + [StateStore.currentUser._id, u._id].sort().join('_');
 
@@ -3507,11 +3255,23 @@
           return item;
         };
 
+        const sortByName = (arr) => {
+          return arr.sort((a, b) => {
+            const nameA = (a.displayName || a.username || '').toLowerCase();
+            const nameB = (b.displayName || b.username || '').toLowerCase();
+            return nameA.localeCompare(nameB);
+          });
+        };
+
+        sortByName(onlineUsers);
+        sortByName(offlineUsers);
+
         // Render Online Section
         if (onlineUsers.length > 0) {
           const lbl = document.createElement('div');
-          lbl.className  = 'presence-section-label label-online';
-          lbl.innerHTML  = `🟢 Active — ${onlineUsers.length}`;
+          lbl.className = 'presence-section-label label-online';
+          lbl.style.cssText = 'padding-top: 14px; font-weight: 800; color: var(--accent); font-size: 11px;';
+          lbl.innerHTML = `🟢 Active — ${onlineUsers.length}`;
           chatList.appendChild(lbl);
           onlineUsers.forEach(u => chatList.appendChild(buildUserItem(u, true)));
         }
@@ -3519,11 +3279,14 @@
         // Render Offline Section
         if (offlineUsers.length > 0) {
           const lbl = document.createElement('div');
-          lbl.className  = 'presence-section-label label-offline';
-          lbl.innerHTML  = `⚪ Offline — ${offlineUsers.length}`;
+          lbl.className = 'presence-section-label label-offline';
+          lbl.style.cssText = 'padding-top: 14px; font-weight: 800; color: var(--text-sub); font-size: 11px;';
+          lbl.innerHTML = `⚪ Offline — ${offlineUsers.length}`;
           chatList.appendChild(lbl);
           offlineUsers.forEach(u => chatList.appendChild(buildUserItem(u, false)));
         }
+
+
 
       },
 
@@ -3541,7 +3304,7 @@
         // ── RIGHT PANEL (desktop) ──
         panel.innerHTML = `
           <!-- ── ONLINE SECTION ── -->
-          <div class="presence-section-label label-online" style="padding-top:14px;">🟢 Active — ${onlineOthers.length + 1}</div>
+          <div class="presence-section-label label-online" style="padding-top:14px;">🟢 Active — ${onlineOthers.length + 2}</div>
 
           <!-- AI Bot (always online) -->
           <div class="online-item" onclick="ChatEngine.selectChat('ai_bot', 'Asthropic Gemini AI', 'https://api.dicebear.com/7.x/bottts/svg?seed=Gemini', true)">
@@ -3555,6 +3318,26 @@
             </div>
           </div>
         `;
+
+        // Render Self (Current User) at the top of the online list
+        if (StateStore.currentUser) {
+          const selfDiv = document.createElement('div');
+          selfDiv.className = 'online-item';
+          selfDiv.style.cssText = 'border-left: 2px solid var(--accent); padding-left: 14px;';
+          const realSelfName = StateStore.currentUser.displayName || StateStore.currentUser.username || 'You';
+          const selfAvatar = StateStore.currentUser.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realSelfName)}`;
+          selfDiv.innerHTML = `
+            <div class="online-avatar-wrap">
+              <img src="${selfAvatar}" class="avatar">
+              <div class="online-dot"></div>
+            </div>
+            <div class="online-details">
+              <h5>${ChatEngine.escapeHtml(realSelfName)} <span style="font-size:10.5px;color:var(--accent);font-weight:700;">(You)</span></h5>
+              <p style="color:#00E676;">🟢 Online — Active Now</p>
+            </div>
+          `;
+          panel.appendChild(selfDiv);
+        }
 
         onlineOthers.forEach(u => {
           const realName     = u.displayName || u.username || 'Member';
@@ -3622,6 +3405,25 @@
           </div>
         `;
 
+        // Render Self on Mobile Online List
+        if (StateStore.currentUser) {
+          const mSelfDiv = document.createElement('div');
+          mSelfDiv.className = 'chat-item';
+          const realSelfName = StateStore.currentUser.displayName || StateStore.currentUser.username || 'You';
+          const selfAvatar = StateStore.currentUser.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realSelfName)}`;
+          mSelfDiv.innerHTML = `
+            <div class="online-avatar-wrap">
+              <img src="${selfAvatar}" class="avatar">
+              <div class="online-dot"></div>
+            </div>
+            <div class="chat-details">
+              <h4>${ChatEngine.escapeHtml(realSelfName)} <span style="font-size:10.5px;color:var(--accent);font-weight:700;">(You)</span></h4>
+              <p style="color:#00E676;">🟢 Online — Active Now</p>
+            </div>
+          `;
+          mobilePanel.appendChild(mSelfDiv);
+        }
+
         onlineOthers.forEach(u => {
           const realName      = u.displayName || u.username || 'Member';
           const avatarUrl     = u.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realName)}`;
@@ -3671,35 +3473,10 @@
         }
 
         // ── UPDATE COUNT BADGES ──
-        const totalOnline = onlineOthers.length + 1; // +1 for AI bot
-        
-        const mainBadge = document.getElementById('onlineCountBadge');
-        if (mainBadge) mainBadge.innerText = `${totalOnline} Online`;
-
-        const mobBadge = document.getElementById('mobileOnlineCount');
-        if (mobBadge) mobBadge.innerText = `${totalOnline}`;
-
-        const navBadge = document.getElementById('navOnlineCount');
-        if (navBadge) navBadge.innerText = `${totalOnline}`;
-
-        const navBadgeMobile = document.getElementById('navOnlineCountMobile');
-        if (navBadgeMobile) navBadgeMobile.innerText = `${totalOnline}`;
+        const totalOnline = onlineOthers.length + 2; // +1 for AI bot, +1 for current user (Self)
+        document.getElementById('onlineCountBadge').innerText = `${totalOnline} Online`;
+        document.getElementById('mobileOnlineCount').innerText = `${totalOnline}`;
       },
-
-      openOnlineMembersModal() {
-        const panel = document.getElementById('onlinePanelContainer');
-        if (panel) {
-          panel.classList.add('open');
-        }
-      },
-
-      closeOnlinePanel() {
-        const panel = document.getElementById('onlinePanelContainer');
-        if (panel) {
-          panel.classList.remove('open');
-        }
-      },
-
 
 
       /**
@@ -3744,9 +3521,7 @@
       },
 
       selectChat(id, name, avatarUrl, isAI, targetUserId = null) {
-        ChatEngine.closeOnlinePanel();
         if (StateStore.socket && StateStore.currentChatId) StateStore.socket.emit('leave_chat', StateStore.currentChatId);
-
 
         // Clear unread badge counter for this chat
         StateStore.unreadCounts[id] = 0;
