@@ -902,6 +902,8 @@ const recordLogoutAudit = (userId, displayName, email, ip = '127.0.0.1') => {
   saveFallbackStore(); // Save state changes
   return entry;
 };
+global.recordLogoutAudit = recordLogoutAudit;
+
 
 // @route POST /api/auth/logout (Audit log logout event)
 router.post('/logout', async (req, res) => {

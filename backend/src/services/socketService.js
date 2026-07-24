@@ -458,6 +458,29 @@ function initializeSockets(io) {
     // Disconnect event handler
     socket.on('disconnect', async () => {
       if (socket.userId) {
+        // Find user info to write audit trail
+        const User = require('../models/User');
+        let displayName = 'Member';
+        let email = '';
+        
+        if (mongoose.connection.readyState === 1) {
+          try {
+            const dbUser = await User.findById(socket.userId);
+            if (dbUser) {
+              displayName = dbUser.displayName || dbUser.username;
+              email = dbUser.email || '';
+            }
+          } catch (e) {}
+        } else if (global.globalUsersMap) {
+          for (const u of global.globalUsersMap.values()) {
+            if (u._id === socket.userId) {
+              displayName = u.displayName || u.username;
+              email = u.email || '';
+              break;
+            }
+          }
+        }
+
         userSockets.delete(socket.userId);
         onlineUsersMap.delete(socket.userId);
         await presenceService.setUserOffline(socket.userId);
@@ -468,8 +491,15 @@ function initializeSockets(io) {
           isOnline: false,
           lastSeen: new Date().toISOString()
         });
+
+        // Write logout audit log on disconnection
+        if (global.recordLogoutAudit) {
+          const logEntry = global.recordLogoutAudit(socket.userId, displayName, email, socket.handshake.address || '127.0.0.1');
+          io.emit('user_logged_out', { logEntry });
+        }
       }
     });
+
   });
 }
 

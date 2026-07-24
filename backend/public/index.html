@@ -1753,10 +1753,11 @@
 
     <div class="online-panel">
       <div class="online-header">
-        <h4>🟢 Online Members</h4>
-        <span class="online-count-badge" id="onlineCountBadge">1 Active</span>
+        <h4>📌 Pinned Chats</h4>
+        <span class="online-count-badge" id="onlineCountBadge">2 Active</span>
       </div>
       <div class="online-list" id="onlineList">
+
         <div class="online-item" onclick="ChatEngine.selectChat('ai_bot', 'Asthropic Gemini AI', 'https://api.dicebear.com/7.x/bottts/svg?seed=Gemini', true)">
           <div class="online-avatar-wrap">
             <div class="avatar" style="background: #FFC107; color: #000;">🤖</div>
@@ -3293,19 +3294,10 @@
       renderOnlinePanel() {
         const panel       = document.getElementById('onlineList');
         const mobilePanel = document.getElementById('mobileOnlineList');
-
-        // ── BUILD ONLINE & OFFLINE USER SETS ──
-        const onlineIds = new Set(StateStore.onlineUsersArray.map(u => u._id));
-        // All registered users except self, split into online / offline
-        const otherUsers = (StateStore.allRegisteredUsers || []).filter(u => u._id !== (StateStore.currentUser && StateStore.currentUser._id));
-        const onlineOthers  = StateStore.onlineUsersArray.filter(u => u._id !== (StateStore.currentUser && StateStore.currentUser._id));
-        const offlineOthers = otherUsers.filter(u => !onlineIds.has(u._id));
+        if (!panel) return;
 
         // ── RIGHT PANEL (desktop) ──
         panel.innerHTML = `
-          <!-- ── ONLINE SECTION ── -->
-          <div class="presence-section-label label-online" style="padding-top:14px;">🟢 Active — ${onlineOthers.length + 2}</div>
-
           <!-- AI Bot (always online) -->
           <div class="online-item" onclick="ChatEngine.selectChat('ai_bot', 'Asthropic Gemini AI', 'https://api.dicebear.com/7.x/bottts/svg?seed=Gemini', true)">
             <div class="online-avatar-wrap">
@@ -3313,170 +3305,59 @@
               <div class="online-dot"></div>
             </div>
             <div class="online-details">
-              <h5>Asthropic AI</h5>
-              <p style="color:#00E676;">Always Active Bot</p>
-            </div>
-          </div>
-        `;
-
-        // Render Self (Current User) at the top of the online list
-        if (StateStore.currentUser) {
-          const selfDiv = document.createElement('div');
-          selfDiv.className = 'online-item';
-          selfDiv.style.cssText = 'border-left: 2px solid var(--accent); padding-left: 14px;';
-          const realSelfName = StateStore.currentUser.displayName || StateStore.currentUser.username || 'You';
-          const selfAvatar = StateStore.currentUser.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realSelfName)}`;
-          selfDiv.innerHTML = `
-            <div class="online-avatar-wrap">
-              <img src="${selfAvatar}" class="avatar">
-              <div class="online-dot"></div>
-            </div>
-            <div class="online-details">
-              <h5>${ChatEngine.escapeHtml(realSelfName)} <span style="font-size:10.5px;color:var(--accent);font-weight:700;">(You)</span></h5>
-              <p style="color:#00E676;">🟢 Online — Active Now</p>
-            </div>
-          `;
-          panel.appendChild(selfDiv);
-        }
-
-        onlineOthers.forEach(u => {
-          const realName     = u.displayName || u.username || 'Member';
-          const avatarUrl    = u.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realName)}`;
-          const privateRoomId = 'dm_' + [StateStore.currentUser._id, u._id].sort().join('_');
-
-          const div = document.createElement('div');
-          div.className = 'online-item';
-          div.onclick = () => ChatEngine.selectChat(privateRoomId, realName, avatarUrl, false, u._id);
-          div.innerHTML = `
-            <div class="online-avatar-wrap">
-              <img src="${avatarUrl}" class="avatar">
-              <div class="online-dot"></div>
-            </div>
-            <div class="online-details">
-              <h5>${ChatEngine.escapeHtml(realName)}</h5>
-              <p style="color:#00E676;">🟢 Online — tap to chat</p>
-            </div>
-          `;
-          panel.appendChild(div);
-        });
-
-        // ── OFFLINE SECTION (right panel) ──
-        if (offlineOthers.length > 0) {
-          const offLbl = document.createElement('div');
-          offLbl.className = 'presence-section-label label-offline';
-          offLbl.innerHTML = `⚪ Offline — ${offlineOthers.length}`;
-          panel.appendChild(offLbl);
-
-          offlineOthers.forEach(u => {
-            const realName      = u.displayName || u.username || 'Member';
-            const avatarUrl     = u.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realName)}`;
-            const privateRoomId = 'dm_' + [StateStore.currentUser._id, u._id].sort().join('_');
-
-            const div = document.createElement('div');
-            div.className = 'online-item';
-            div.style.cssText = 'opacity:0.55;';
-            div.onclick = () => ChatEngine.selectChat(privateRoomId, realName, avatarUrl, false, u._id);
-            div.innerHTML = `
-              <div class="online-avatar-wrap">
-                <img src="${avatarUrl}" class="avatar" style="filter:grayscale(0.4);">
-                <div class="offline-dot"></div>
-              </div>
-              <div class="online-details">
-                <h5>${ChatEngine.escapeHtml(realName)}</h5>
-                <p>⚪ Offline</p>
-              </div>
-            `;
-            panel.appendChild(div);
-          });
-        }
-
-        // ── MOBILE PANEL (compact) ──
-        mobilePanel.innerHTML = `
-          <div class="presence-section-label label-online" style="padding-top:14px;">🟢 Active</div>
-          <div class="chat-item" onclick="ChatEngine.selectChat('ai_bot', 'Asthropic Gemini AI', 'https://api.dicebear.com/7.x/bottts/svg?seed=Gemini', true)">
-            <div class="online-avatar-wrap">
-              <div class="avatar" style="background: #FFC107; color: #000;">🤖</div>
-              <div class="online-dot"></div>
-            </div>
-            <div class="chat-details">
-              <h4>Asthropic AI</h4>
-              <p style="color:#00E676;">Always Active</p>
-            </div>
-          </div>
-        `;
-
-        // Render Self on Mobile Online List
-        if (StateStore.currentUser) {
-          const mSelfDiv = document.createElement('div');
-          mSelfDiv.className = 'chat-item';
-          const realSelfName = StateStore.currentUser.displayName || StateStore.currentUser.username || 'You';
-          const selfAvatar = StateStore.currentUser.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realSelfName)}`;
-          mSelfDiv.innerHTML = `
-            <div class="online-avatar-wrap">
-              <img src="${selfAvatar}" class="avatar">
-              <div class="online-dot"></div>
-            </div>
-            <div class="chat-details">
-              <h4>${ChatEngine.escapeHtml(realSelfName)} <span style="font-size:10.5px;color:var(--accent);font-weight:700;">(You)</span></h4>
-              <p style="color:#00E676;">🟢 Online — Active Now</p>
-            </div>
-          `;
-          mobilePanel.appendChild(mSelfDiv);
-        }
-
-        onlineOthers.forEach(u => {
-          const realName      = u.displayName || u.username || 'Member';
-          const avatarUrl     = u.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realName)}`;
-          const privateRoomId = 'dm_' + [StateStore.currentUser._id, u._id].sort().join('_');
-          const mdiv = document.createElement('div');
-          mdiv.className = 'chat-item';
-          mdiv.onclick = () => ChatEngine.selectChat(privateRoomId, realName, avatarUrl, false, u._id);
-          mdiv.innerHTML = `
-            <div class="online-avatar-wrap">
-              <img src="${avatarUrl}" class="avatar">
-              <div class="online-dot"></div>
-            </div>
-            <div class="chat-details">
-              <h4>${ChatEngine.escapeHtml(realName)}</h4>
+              <h5>Asthropic Gemini AI</h5>
               <p style="color:#00E676;">🟢 Online</p>
             </div>
-          `;
-          mobilePanel.appendChild(mdiv);
-        });
+          </div>
 
-        if (offlineOthers.length > 0) {
-          const offLblM = document.createElement('div');
-          offLblM.className = 'presence-section-label label-offline';
-          offLblM.innerHTML = `⚪ Offline — ${offlineOthers.length}`;
-          mobilePanel.appendChild(offLblM);
+          <!-- General Global Chat -->
+          <div class="online-item" onclick="ChatEngine.selectChat('general_room', 'General Global Chat', '', false)">
+            <div class="online-avatar-wrap">
+              <div class="avatar" style="background: #3F51B5;">💬</div>
+              <div class="online-dot"></div>
+            </div>
+            <div class="online-details">
+              <h5>General Global Chat</h5>
+              <p style="color:#00E676;">🟢 Online</p>
+            </div>
+          </div>
+        `;
 
-          offlineOthers.forEach(u => {
-            const realName      = u.displayName || u.username || 'Member';
-            const avatarUrl     = u.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(realName)}`;
-            const privateRoomId = 'dm_' + [StateStore.currentUser._id, u._id].sort().join('_');
-            const mdiv = document.createElement('div');
-            mdiv.className = 'chat-item';
-            mdiv.style.cssText = 'opacity:0.55;';
-            mdiv.onclick = () => ChatEngine.selectChat(privateRoomId, realName, avatarUrl, false, u._id);
-            mdiv.innerHTML = `
+        if (mobilePanel) {
+          mobilePanel.innerHTML = `
+            <div class="presence-section-label" style="padding-top:14px;">📌 Pinned</div>
+            <div class="chat-item" onclick="ChatEngine.selectChat('ai_bot', 'Asthropic Gemini AI', 'https://api.dicebear.com/7.x/bottts/svg?seed=Gemini', true)">
               <div class="online-avatar-wrap">
-                <img src="${avatarUrl}" class="avatar" style="filter:grayscale(0.4);">
-                <div class="offline-dot"></div>
+                <div class="avatar" style="background: #FFC107; color: #000;">🤖</div>
+                <div class="online-dot"></div>
               </div>
               <div class="chat-details">
-                <h4>${ChatEngine.escapeHtml(realName)}</h4>
-                <p>⚪ Offline</p>
+                <h4>Asthropic Gemini AI</h4>
+                <p style="color:#00E676;">🟢 Online</p>
               </div>
-            `;
-            mobilePanel.appendChild(mdiv);
-          });
+            </div>
+            <div class="chat-item" onclick="ChatEngine.selectChat('general_room', 'General Global Chat', '', false)">
+              <div class="online-avatar-wrap">
+                <div class="avatar" style="background: #3F51B5;">💬</div>
+                <div class="online-dot"></div>
+              </div>
+              <div class="chat-details">
+                <h4>General Global Chat</h4>
+                <p style="color:#00E676;">🟢 Online</p>
+              </div>
+            </div>
+          `;
         }
 
         // ── UPDATE COUNT BADGES ──
+        const onlineOthers  = StateStore.onlineUsersArray.filter(u => u._id !== (StateStore.currentUser && StateStore.currentUser._id));
         const totalOnline = onlineOthers.length + 2; // +1 for AI bot, +1 for current user (Self)
-        document.getElementById('onlineCountBadge').innerText = `${totalOnline} Online`;
-        document.getElementById('mobileOnlineCount').innerText = `${totalOnline}`;
+        const countBadge = document.getElementById('onlineCountBadge');
+        if (countBadge) countBadge.innerText = `${totalOnline} Active`;
+        const mobBadge = document.getElementById('mobileOnlineCount');
+        if (mobBadge) mobBadge.innerText = `${totalOnline}`;
       },
+
 
 
       /**

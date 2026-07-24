@@ -144,7 +144,7 @@
         "isPro": false,
         "username": "ravi",
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:17:35.028Z"
+        "lastSeen": "2026-07-24T16:27:24.780Z"
       }
     ],
     [
@@ -194,7 +194,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:16:48.853Z"
+        "lastSeen": "2026-07-24T16:26:56.752Z"
       }
     ],
     [
@@ -212,7 +212,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:16:48.853Z"
+        "lastSeen": "2026-07-24T16:26:56.752Z"
       }
     ],
     [
@@ -230,11 +230,19 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:16:48.853Z"
+        "lastSeen": "2026-07-24T16:26:56.752Z"
       }
     ]
   ],
   "logoutLogs": [
+    {
+      "id": "logout_1784910444524_713",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T16:27:24.525Z",
+      "ip": "::1"
+    },
     {
       "id": "logout_demo_1",
       "userId": "user_owner_demo",
