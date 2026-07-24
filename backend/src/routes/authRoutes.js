@@ -917,6 +917,19 @@ router.post('/logout', async (req, res) => {
       await User.findByIdAndUpdate(userId, { isOnline: false, lastSeen: new Date() });
     }
 
+    // Update in-memory Map
+    if (userId && globalUsersMap) {
+      for (const u of globalUsersMap.values()) {
+        if (u._id === userId) {
+          u.isOnline = false;
+          u.lastSeen = new Date().toISOString();
+          break;
+        }
+      }
+      saveFallbackStore();
+    }
+
+
     const io = req.app.get('io');
     if (io) {
       io.emit('user_logged_out', { logEntry });

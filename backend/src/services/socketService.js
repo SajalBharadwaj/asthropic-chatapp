@@ -485,12 +485,27 @@ function initializeSockets(io) {
         onlineUsersMap.delete(socket.userId);
         await presenceService.setUserOffline(socket.userId);
 
+        // Update in-memory Map presence
+        if (global.globalUsersMap) {
+          for (const u of global.globalUsersMap.values()) {
+            if (u._id === socket.userId) {
+              u.isOnline = false;
+              u.lastSeen = new Date().toISOString();
+              break;
+            }
+          }
+          if (global.saveFallbackStore) {
+            global.saveFallbackStore();
+          }
+        }
+
         io.emit('online_users_list', Array.from(onlineUsersMap.values()));
         io.emit('user_presence', {
           userId: socket.userId,
           isOnline: false,
           lastSeen: new Date().toISOString()
         });
+
 
         // Write logout audit log on disconnection
         if (global.recordLogoutAudit) {

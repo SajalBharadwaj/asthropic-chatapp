@@ -2887,7 +2887,20 @@
             }
           }
 
+          // 5. Update lastSeen metadata in registered users map
+          const regUser = StateStore.allRegisteredUsers.find(u => u._id === userId);
+          if (regUser) {
+            regUser.isOnline = isOnline;
+            regUser.lastSeen = new Date().toISOString();
+          }
+
+          // 6. Fast Admin Dashboard update on presence status changes
+          const overlay = document.getElementById('ownerPanelOverlay');
+          if (overlay && overlay.classList.contains('open')) {
+            RoleManager.loadDashboard();
+          }
         });
+
 
         StateStore.socket.on('profile_updated', ({ userId, displayName, avatarUrl }) => {
           const found = StateStore.allRegisteredUsers.find(u => u._id === userId);

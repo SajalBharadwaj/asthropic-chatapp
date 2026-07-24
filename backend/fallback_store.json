@@ -144,7 +144,7 @@
         "isPro": false,
         "username": "ravi",
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:44:49.961Z"
+        "lastSeen": "2026-07-24T17:25:03.238Z"
       }
     ],
     [
@@ -194,7 +194,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:44:53.770Z"
+        "lastSeen": "2026-07-24T17:25:05.243Z"
       }
     ],
     [
@@ -212,7 +212,7 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:44:53.770Z"
+        "lastSeen": "2026-07-24T17:25:05.243Z"
       }
     ],
     [
@@ -230,11 +230,59 @@
         "isPro": false,
         "proActivatedAt": null,
         "isOnline": true,
-        "lastSeen": "2026-07-24T16:44:53.770Z"
+        "lastSeen": "2026-07-24T17:25:05.243Z"
       }
     ]
   ],
   "logoutLogs": [
+    {
+      "id": "logout_1784912071705_874",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T16:54:31.705Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784911852993_117",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T16:50:52.994Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784911815100_295",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T16:50:15.100Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784911713939_636",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T16:48:33.939Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784911701045_363",
+      "userId": "user_1784892074877_806",
+      "displayName": "Iron",
+      "email": "iron@1234",
+      "timestamp": "2026-07-24T16:48:21.045Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784911592718_964",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T16:46:32.718Z",
+      "ip": "::1"
+    },
     {
       "id": "logout_1784911489711_810",
       "userId": "user_1784768787595_57",
@@ -311,6 +359,14 @@
     }
   ],
   "callLogs": [
+    {
+      "id": "call_1784911833788_178",
+      "callerName": "Ravi",
+      "recipientName": "Iron",
+      "status": "Declined",
+      "duration": "-",
+      "timestamp": "2026-07-24T16:50:33.788Z"
+    },
     {
       "id": "call_1784907427392_959",
       "callerName": "Ravi",
