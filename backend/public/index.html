@@ -1459,7 +1459,57 @@
     .reply-preview-bar.active { display: flex; }
     .reply-preview-content { color: var(--text-sub); font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 90%; }
     .reply-close-btn { color: var(--text-main); cursor: pointer; padding: 4px; font-weight: bold; }
+
+    /* Mobile slide-out drawer layout */
+    @media (max-width: 768px) {
+      .app-body .sidebar {
+        position: fixed !important;
+        top: 0;
+        bottom: 0;
+        left: -330px; /* Hide off-screen */
+        width: 300px;
+        z-index: 2500;
+        display: flex !important;
+        /* Force transitions specifically for mobile drawer */
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+      .app-body .sidebar.drawer-open {
+        transform: translateX(330px);
+      }
+      .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 2400;
+        display: none;
+        backdrop-filter: blur(4px);
+      }
+      .sidebar-backdrop.active {
+        display: block;
+      }
+      .mobile-menu-btn {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+      /* Adjust main layouts when drawer is active */
+      .app-body:not(.mobile-chat-active) .sidebar {
+        position: relative !important;
+        left: 0;
+        width: 100%;
+        transform: none !important;
+        transition: none !important;
+      }
+      .app-body:not(.mobile-chat-active) .chat-area {
+        display: none !important;
+      }
+      .app-body.mobile-chat-active .chat-area {
+        display: flex;
+        width: 100%;
+      }
+    }
   </style>
+
 
 </head>
 <body>
@@ -1639,6 +1689,7 @@
 
   <!-- CHAT APPLICATION DASHBOARD -->
   <div class="app-body" id="page_chat">
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="ChatEngine.closeMobileDrawer()"></div>
     <div class="sidebar">
       <!-- MOBILE SIDEBAR TABS (DMs & AI vs Online Members) -->
       <div class="sidebar-tabs" id="sidebarTabs">
@@ -1675,6 +1726,7 @@
     <div class="chat-area">
       <div class="chat-header" id="chatHeaderBar" style="display: none;">
         <div class="chat-header-info">
+          <span class="mobile-menu-btn" onclick="ChatEngine.toggleMobileDrawer()" style="display: none; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; background: rgba(255,255,255,0.12); width: 32px; height: 32px; border-radius: 50%; margin-right: 8px;">☰</span>
           <span class="mobile-back-btn" onclick="ChatEngine.exitMobileChat()">⬅️</span>
           <div id="activeChatAvatarContainer">
             <div class="avatar" style="background: #FFC107; color: #000;">🤖</div>
@@ -3415,6 +3467,7 @@
       },
 
       selectChat(id, name, avatarUrl, isAI, targetUserId = null) {
+        this.closeMobileDrawer();
         if (StateStore.socket && StateStore.currentChatId) StateStore.socket.emit('leave_chat', StateStore.currentChatId);
 
         // Clear unread badge counter for this chat
@@ -4029,7 +4082,32 @@
         }
       },
 
-      exitMobileChat() { document.getElementById('page_chat').classList.remove('mobile-chat-active'); },
+      exitMobileChat() {
+        document.getElementById('page_chat').classList.remove('mobile-chat-active');
+        this.closeMobileDrawer();
+      },
+      toggleMobileDrawer() {
+        const sidebar = document.querySelector('.sidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
+        if (sidebar && backdrop) {
+          const isOpen = sidebar.classList.contains('drawer-open');
+          if (isOpen) {
+            sidebar.classList.remove('drawer-open');
+            backdrop.classList.remove('active');
+          } else {
+            sidebar.classList.add('drawer-open');
+            backdrop.classList.add('active');
+          }
+        }
+      },
+      closeMobileDrawer() {
+        const sidebar = document.querySelector('.sidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
+        if (sidebar && backdrop) {
+          sidebar.classList.remove('drawer-open');
+          backdrop.classList.remove('active');
+        }
+      },
       toggleEmojiPicker() {
         const picker = document.getElementById('emojiPicker');
         picker.style.display = picker.style.display === 'grid' ? 'none' : 'grid';

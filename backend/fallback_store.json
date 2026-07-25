@@ -124,7 +124,7 @@
         "role": "owner",
         "isPro": true,
         "isOnline": false,
-        "lastSeen": "2026-07-24T17:33:39.214+00:00",
+        "lastSeen": "2026-07-25T04:44:08.996+00:00",
         "createdAt": "2026-07-19T07:16:20.528+00:00"
       }
     ],
@@ -143,7 +143,7 @@
         "isPro": false,
         "username": "ravi",
         "isOnline": true,
-        "lastSeen": "2026-07-24T17:33:38.792Z"
+        "lastSeen": "2026-07-25T04:46:21.102Z"
       }
     ],
     [
@@ -158,7 +158,7 @@
         "role": "user",
         "isPro": false,
         "isOnline": false,
-        "lastSeen": "2026-07-24T17:33:39.214+00:00",
+        "lastSeen": "2026-07-25T04:44:08.698+00:00",
         "createdAt": "2026-07-22T07:16:20.528+00:00"
       }
     ],
@@ -174,8 +174,8 @@
         "role": "user",
         "isPro": false,
         "isOnline": false,
-        "lastSeen": "2026-07-24T17:33:39.214+00:00",
-        "createdAt": "2026-07-24T17:33:39.214+00:00"
+        "lastSeen": "2026-07-25T04:43:39.45+00:00",
+        "createdAt": "2026-07-25T04:43:39.45+00:00"
       }
     ],
     [
@@ -246,8 +246,8 @@
         "role": "user",
         "isPro": false,
         "proActivatedAt": null,
-        "isOnline": true,
-        "lastSeen": "2026-07-24T17:34:06.353Z"
+        "isOnline": false,
+        "lastSeen": "2026-07-24T17:40:34.679Z"
       }
     ],
     [
@@ -264,8 +264,8 @@
         "role": "user",
         "isPro": false,
         "proActivatedAt": null,
-        "isOnline": true,
-        "lastSeen": "2026-07-24T17:34:06.353Z"
+        "isOnline": false,
+        "lastSeen": "2026-07-24T17:40:34.667Z"
       }
     ],
     [
@@ -282,8 +282,8 @@
         "role": "user",
         "isPro": false,
         "proActivatedAt": null,
-        "isOnline": true,
-        "lastSeen": "2026-07-24T17:34:06.353Z"
+        "isOnline": false,
+        "lastSeen": "2026-07-24T17:40:34.667Z"
       }
     ],
     [
@@ -297,9 +297,9 @@
         "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=naman",
         "role": "user",
         "isPro": false,
-        "isOnline": true,
-        "lastSeen": "2026-07-24T17:34:06.353Z",
-        "createdAt": "2026-07-24T17:33:39.214+00:00"
+        "isOnline": false,
+        "lastSeen": "2026-07-24T17:40:34.667+00:00",
+        "createdAt": "2026-07-25T04:44:08.997+00:00"
       }
     ],
     [
@@ -315,11 +315,43 @@
         "isPro": false,
         "isOnline": true,
         "lastSeen": "2026-07-24T17:33:39.213+00:00",
-        "createdAt": "2026-07-24T17:33:39.214+00:00"
+        "createdAt": "2026-07-25T04:44:08.997+00:00"
       }
     ]
   ],
   "logoutLogs": [
+    {
+      "id": "logout_1784954780707_813",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-25T04:46:20.708Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784914834723_510",
+      "userId": "user_1784914416762_408",
+      "displayName": "naman",
+      "email": "naman@1234",
+      "timestamp": "2026-07-24T17:40:34.723Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784914827384_761",
+      "userId": "user_1784914416762_408",
+      "displayName": "naman",
+      "email": "naman@1234",
+      "timestamp": "2026-07-24T17:40:27.384Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784914795777_236",
+      "userId": "user_1784768787595_57",
+      "displayName": "Ravi",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-24T17:39:55.777Z",
+      "ip": "::1"
+    },
     {
       "id": "logout_1784914446011_498",
       "userId": "user_1784914416762_408",

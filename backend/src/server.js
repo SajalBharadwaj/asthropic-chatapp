@@ -208,7 +208,7 @@ const io = new Server(server, {
 initializeSockets(io);
 app.set('io', io);
 
-// Firebase Firestore DB Sync Integration
+// Database Caching & Sync Initialization
 const { initDbService, syncFromFirestore } = require('./services/dbService');
 const { inMemoryMessages } = require('./services/socketService');
 
@@ -217,7 +217,7 @@ syncFromFirestore().then(() => {
   if (global.saveFallbackStore) {
     global.saveFallbackStore();
   }
-}).catch(err => console.error('[Firebase Sync] Startup sync failed:', err.message));
+}).catch(err => console.error('[Database Sync] Startup sync failed:', err.message));
 
 // SCHEDULED AUTOMATED BACKGROUND CLEANUP (Runs every 12 hours)
 const CLEANUP_INTERVAL_MS = 12 * 60 * 60 * 1000;
