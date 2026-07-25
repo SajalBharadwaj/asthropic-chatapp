@@ -79,7 +79,7 @@
         "statusMessage": "👑 Asthropic Owner",
         "createdAt": "2026-07-19T07:16:20.528Z",
         "isOnline": true,
-        "lastSeen": "2026-07-25T06:32:11.231Z"
+        "lastSeen": "2026-07-25T11:25:02.019Z"
       }
     ],
     [
@@ -97,7 +97,7 @@
         "statusMessage": "👑 Asthropic Owner",
         "createdAt": "2026-07-19T07:16:20.528Z",
         "isOnline": true,
-        "lastSeen": "2026-07-25T06:32:11.231Z"
+        "lastSeen": "2026-07-25T11:25:02.019Z"
       }
     ],
     [
@@ -115,7 +115,7 @@
         "statusMessage": "👑 Asthropic Owner",
         "createdAt": "2026-07-19T07:16:20.528Z",
         "isOnline": true,
-        "lastSeen": "2026-07-25T06:32:11.231Z"
+        "lastSeen": "2026-07-25T11:25:02.019Z"
       }
     ],
     [
@@ -130,7 +130,7 @@
         "role": "owner",
         "isPro": true,
         "isOnline": true,
-        "lastSeen": "2026-07-25T06:32:11.231Z",
+        "lastSeen": "2026-07-25T11:25:02.019Z",
         "createdAt": "2026-07-19T07:16:20.528+00:00"
       }
     ],
@@ -326,6 +326,22 @@
     ]
   ],
   "logoutLogs": [
+    {
+      "id": "logout_1784978511942_638",
+      "userId": "user_owner_seed",
+      "displayName": "Sajal Sharma",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-25T11:21:51.943Z",
+      "ip": "::1"
+    },
+    {
+      "id": "logout_1784971879613_250",
+      "userId": "user_owner_seed",
+      "displayName": "Sajal Sharma",
+      "email": "sajalsharma46777@gmail.com",
+      "timestamp": "2026-07-25T09:31:19.613Z",
+      "ip": "::1"
+    },
     {
       "id": "logout_1784961123842_491",
       "userId": "user_owner_seed",
