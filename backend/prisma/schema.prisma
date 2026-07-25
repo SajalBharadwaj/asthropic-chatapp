@@ -1,0 +1,57 @@
+﻿datasource db {
+  provider = "postgresql"
+  url      = env("SUPABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserStatus {
+  online
+  offline
+}
+
+model User {
+  id          String     @id @default(uuid())
+  name        String
+  email       String     @unique
+  password    String
+  avatar      String?
+  status      UserStatus @default(offline)
+  lastSeen    DateTime   @default(now())
+  role        String     @default("user")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  sentMessages     Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+
+  @@map("users")
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  senderId   String
+  receiverId String?
+  chatId     String
+  content    String
+  mediaUrl   String?
+  isVoice    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  sender   User  @relation("SentMessages", fields: [senderId], references: [id])
+  receiver User? @relation("ReceivedMessages", fields: [receiverId], references: [id])
+
+  @@map("messages")
+}
+
+model Workspace {
+  id          String   @id
+  name        String
+  description String
+  isPinned    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@map("workspaces")
+}
