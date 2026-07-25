@@ -1,65 +1,152 @@
-import Image from "next/image";
+﻿"use client";
+
+import React, { useState, useEffect } from "react";
+import { Sidebar, UserItem } from "@/components/Sidebar";
+import { RightPanel } from "@/components/RightPanel";
+import { ChatArea, MessageItem } from "@/components/ChatArea";
+import { AdminPanel } from "@/components/AdminPanel";
+import { getSocket } from "@/lib/socket";
 
 export default function Home() {
+  const [users, setUsers] = useState<UserItem[]>([
+    { id: "user_1", name: "Aman Bharadwaj", email: "aman@example.com", status: "online" },
+    { id: "user_2", name: "Sajal Bharadwaj", email: "sajal@example.com", status: "online" },
+    { id: "user_3", name: "Rohan Sharma", email: "rohan@example.com", status: "offline", lastSeen: new Date(Date.now() - 3600000).toISOString() },
+  ]);
+  const [currentChatId, setCurrentChatId] = useState("general_room");
+  const [currentChatName, setCurrentChatName] = useState("General Global Chat");
+  const [isAIChat, setIsAIChat] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [messages, setMessages] = useState<Record<string, MessageItem[]>>({
+    general_room: [
+      { id: "1", senderId: "sys", senderName: "System", text: "Welcome to General Global Chat!", isMine: false, timestamp: new Date().toISOString() },
+    ],
+    ai_bot: [
+      { id: "ai_1", senderId: "ai_bot", senderName: "Asthropic Gemini AI", text: "Hello! I am your intelligent Gemini AI Assistant. How can I help you today?", isMine: false, timestamp: new Date().toISOString() },
+    ],
+  });
+  const [auditLogs, setAuditLogs] = useState([
+    { id: "log_1", userEmail: "rohan@example.com", action: "Disconnected (Logout Audit Saved)", timestamp: new Date(Date.now() - 3600000).toISOString() },
+  ]);
+
+  useEffect(() => {
+    const socket = getSocket();
+
+    socket.on("connect", () => {
+      console.log("Connected to Socket Server");
+    });
+
+    socket.on("user_presence", ({ userId, isOnline, user, lastSeen }) => {
+      setUsers((prev) =>
+        prev.map((u) => {
+          if (u.id === userId) {
+            return { ...u, status: isOnline ? "online" : "offline", lastSeen: lastSeen || new Date().toISOString() };
+          }
+          return u;
+        })
+      );
+
+      if (!isOnline) {
+        setAuditLogs((prev) => [
+          {
+            id: "log_" + Date.now(),
+            userEmail: user?.email || userId,
+            action: `Disconnected (lastSeen: ${new Date(lastSeen || Date.now()).toLocaleTimeString()})`,
+            timestamp: lastSeen || new Date().toISOString(),
+          },
+          ...prev,
+        ]);
+      }
+    });
+
+    socket.on("receive_message", (msg) => {
+      const chatId = msg.chatId || "general_room";
+      setMessages((prev) => ({
+        ...prev,
+        [chatId]: [
+          ...(prev[chatId] || []),
+          {
+            id: msg.id || "msg_" + Date.now(),
+            senderId: msg.senderId,
+            senderName: msg.senderName || "Member",
+            text: msg.content || msg.text,
+            isMine: false,
+            timestamp: msg.createdAt || new Date().toISOString(),
+          },
+        ],
+      }));
+    });
+
+    return () => {
+      socket.off("user_presence");
+      socket.off("receive_message");
+    };
+  }, []);
+
+  const handleSelectChat = (id: string, name: string, isAI: boolean = false) => {
+    setCurrentChatId(id);
+    setCurrentChatName(name);
+    setIsAIChat(isAI);
+  };
+
+  const handleSendMessage = (text: string) => {
+    const newMsg: MessageItem = {
+      id: "msg_" + Date.now(),
+      senderId: "my_user_id",
+      senderName: "Aman",
+      text,
+      isMine: true,
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((prev) => ({
+      ...prev,
+      [currentChatId]: [...(prev[currentChatId] || []), newMsg],
+    }));
+
+    const socket = getSocket();
+    if (socket && socket.connected) {
+      socket.emit("send_message", {
+        chatId: currentChatId,
+        content: text,
+        senderId: "my_user_id",
+        senderName: "Aman",
+      });
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="flex h-screen w-screen bg-[#131520] overflow-hidden font-sans antialiased">
+      {/* Left Sidebar Contacts List */}
+      <Sidebar
+        users={users}
+        currentChatId={currentChatId}
+        onSelectChat={(id, name) => handleSelectChat(id, name, false)}
+      />
+
+      {/* Main Messaging Area */}
+      <ChatArea
+        chatId={currentChatId}
+        chatName={currentChatName}
+        isAI={isAIChat}
+        messages={messages[currentChatId] || []}
+        onSendMessage={handleSendMessage}
+        onOpenAdmin={() => setIsAdminOpen(true)}
+      />
+
+      {/* Right Pinned Workspaces Panel */}
+      <RightPanel
+        currentChatId={currentChatId}
+        onSelectWorkspace={(id, name, isAI) => handleSelectChat(id, name, isAI)}
+      />
+
+      {/* Admin Live Audit Dashboard Modal */}
+      <AdminPanel
+        isOpen={isAdminOpen}
+        onClose={() => setIsAdminOpen(false)}
+        users={users}
+        logs={auditLogs}
+      />
+    </main>
   );
 }
