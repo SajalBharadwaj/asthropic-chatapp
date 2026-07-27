@@ -79,7 +79,7 @@
         "statusMessage": "👑 Asthropic Owner",
         "createdAt": "2026-07-22T07:49:24.472Z",
         "isOnline": true,
-        "lastSeen": "2026-07-27T07:49:26.215Z"
+        "lastSeen": "2026-07-27T07:54:29.274Z"
       }
     ],
     [
@@ -97,7 +97,7 @@
         "statusMessage": "👑 Asthropic Owner",
         "createdAt": "2026-07-22T07:49:24.472Z",
         "isOnline": true,
-        "lastSeen": "2026-07-27T07:49:26.215Z"
+        "lastSeen": "2026-07-27T07:54:29.274Z"
       }
     ],
     [
@@ -115,7 +115,7 @@
         "statusMessage": "👑 Asthropic Owner",
         "createdAt": "2026-07-22T07:49:24.472Z",
         "isOnline": true,
-        "lastSeen": "2026-07-27T07:49:26.215Z"
+        "lastSeen": "2026-07-27T07:54:29.274Z"
       }
     ],
     [
@@ -124,14 +124,14 @@
         "_id": "user_owner_seed",
         "username": "sajal",
         "email": "sajalsharma46777@gmail.com",
-        "password": "1234",
+        "password": "password123",
         "displayName": "Sajal Sharma",
         "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sajal",
         "role": "owner",
         "isPro": true,
         "isOnline": true,
-        "lastSeen": "2026-07-27T07:49:26.215Z",
-        "createdAt": "2026-07-19T07:16:20.528+00:00"
+        "lastSeen": "2026-07-27T07:54:29.274Z",
+        "createdAt": "2026-07-22T07:53:04.865+00:00"
       }
     ],
     [
@@ -146,7 +146,7 @@
         "role": "user",
         "isPro": false,
         "isOnline": false,
-        "lastSeen": "2026-07-27T07:47:51.344+00:00",
+        "lastSeen": "2026-07-27T07:54:10.216+00:00",
         "createdAt": "2026-07-22T07:16:20.528+00:00"
       }
     ],
@@ -162,8 +162,8 @@
         "role": "user",
         "isPro": false,
         "isOnline": false,
-        "lastSeen": "2026-07-25T11:25:02.021+00:00",
-        "createdAt": "2026-07-25T11:25:02.021+00:00"
+        "lastSeen": "2026-07-27T07:53:05.254+00:00",
+        "createdAt": "2026-07-27T07:53:05.254+00:00"
       }
     ],
     [
@@ -178,8 +178,8 @@
         "role": "user",
         "isPro": false,
         "isOnline": true,
-        "lastSeen": "2026-07-27T07:49:25.222Z",
-        "createdAt": "2026-07-27T07:47:51.345+00:00"
+        "lastSeen": "2026-07-27T07:54:29.248Z",
+        "createdAt": "2026-07-27T07:54:10.216+00:00"
       }
     ],
     [
@@ -195,7 +195,7 @@
         "isPro": false,
         "isOnline": true,
         "lastSeen": "2026-07-24T17:34:06.353+00:00",
-        "createdAt": "2026-07-27T07:45:49.864+00:00"
+        "createdAt": "2026-07-27T07:54:10.216+00:00"
       }
     ]
   ],
