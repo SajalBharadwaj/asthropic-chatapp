@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: asthropic-prod
+  labels:
+    name: asthropic-prod

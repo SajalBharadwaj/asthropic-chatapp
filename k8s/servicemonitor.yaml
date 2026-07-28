@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: asthropic-monitor
+  namespace: asthropic-prod
+  labels:
+    release: prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: asthropic-backend
+  endpoints:
+  - port: http
+    path: /metrics
+    interval: 15s

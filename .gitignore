@@ -1,0 +1,21 @@
+# Node & Backend
+node_modules/
+.env
+uploads/*
+!uploads/.gitkeep
+*.log
+
+# Terraform Build & State Files
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+.terraform.lock.hcl
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*~
