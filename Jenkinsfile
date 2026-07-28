@@ -2,30 +2,27 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE = 'sajal30/asthropic-chatapp-backend'
-        DOCKER_CREDENTIALS_ID = 'dockerhub-secret-id' // Jenkins credentials mein set kiya hua ID
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
     stages {
         stage('Checkout Code') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/SajalBharadwaj/asthropic-chatapp.git'
             }
         }
         stage('Build Docker Image') {
             steps {
                 dir('backend') {
-                    script {
-                        app = docker.build("${env.DOCKER_IMAGE}:${env.BUILD_NUMBER}")
-                    }
+                    sh "docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG} -t ${DOCKER_IMAGE}:latest ."
                 }
             }
         }
         stage('Push to Docker Hub') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${env.DOCKER_CREDENTIALS_ID}") {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    }
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                    sh "docker push ${DOCKER_IMAGE}:${IMAGE_TAG}"
+                    sh "docker push ${DOCKER_IMAGE}:latest"
                 }
             }
         }
