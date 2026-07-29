@@ -18,10 +18,11 @@ spec:
         image: grafana/grafana:latest
         ports:
         - containerPort: 3000
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "200m"
+        env:
+        - name: GF_SECURITY_ADMIN_USER
+          value: "admin"
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: "admin"
 ---
 apiVersion: v1
 kind: Service
@@ -33,6 +34,6 @@ spec:
   ports:
   - port: 3000
     targetPort: 3000
-    nodePort: 30300
+    nodePort: 30030
   selector:
     app: grafana
