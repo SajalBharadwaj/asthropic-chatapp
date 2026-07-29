@@ -16,7 +16,7 @@ Instant Local Cache Engine: Caches user sessions, chat lists, and message histor
 
 Presence System: Redis O(1) state engine tracking online/offline status and live last-seen timestamps.
 
-Native Gemini AI Integration: Direct Gemini AI assistant tab and in-chat @gemini trigger for smart assistance.
+Native Gemini AI Integration: Direct Gemini AI assistant tab and in-chat @gemini trigger for smart assistance
 
 🛠️ Step-by-Step Setup & Deployment Commands
 
