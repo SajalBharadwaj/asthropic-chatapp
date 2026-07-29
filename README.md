@@ -59,3 +59,5 @@ minikube service prometheus-service -n monitoring
 Grafana Dashboard (NodePort):
 minikube service grafana-service -n monitoring
 (Default login: admin / admin)
+
+https://asthropic-chatapp.onrender.com 
